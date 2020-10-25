@@ -1,0 +1,38 @@
+.maincontainer{
+    width: 360px;
+    margin: auto;
+    border: solid;
+    border-color: black;
+    border-width: 2px;
+}
+
+.topPart{
+    padding: 5px;
+    height: 25%;
+    min-height: 80px;
+    font-size: x-large;
+    font-weight: bold;
+    background: #000000;
+    color: #ffffff;
+    vertical-align: middle;
+}
+
+.mainStuff{
+    width: 350px;
+    margin: auto;
+}
+
+.showImage{
+    width: 300px;
+    height: 225px;
+    margin: auto;
+}
+
+.uptext{
+    font-size: 16px;
+}
+
+.lowtext{
+    font-size: 16px;
+    padding-bottom: 8px;
+}
