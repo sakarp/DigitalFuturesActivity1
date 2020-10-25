@@ -36,3 +36,28 @@
     font-size: 16px;
     padding-bottom: 8px;
 }
+
+.bottomPart{
+    height: 16px;
+    font-size: 12px;
+    padding: 8px;
+}
+
+.myButton{
+    border: solid;
+    border-color: black;
+    border-width: 1px;
+    padding: 8px 16px;
+}
+
+.NextButton{
+    float: right;
+    background-color: #4CAF50;
+    color: white;
+}
+
+.PreviousButton{
+    float: left;
+    background-color: lightgrey;
+    color: black;
+}
