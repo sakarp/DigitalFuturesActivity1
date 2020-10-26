@@ -8,8 +8,7 @@
 
 .topPart{
     padding: 5px;
-    height: 25%;
-    min-height: 80px;
+    height: 80px;
     font-size: x-large;
     font-weight: bold;
     background: #000000;
@@ -22,10 +21,19 @@
     margin: auto;
 }
 
+#bgi{
+    background-image: url(images/thaiBuddhaSmall.png), url(images/midbreak.png), url(images/thaiBuddhaSmall.png);
+    opacity: 0.2;
+    background-repeat: no-repeat;
+    background-position: center top, center center, center bottom;
+}
+
 .showImage{
     width: 300px;
     height: 225px;
     margin: auto;
+    padding-top: 6px;
+    padding-bottom: 6px;
 }
 
 .uptext{
