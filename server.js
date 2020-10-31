@@ -115,7 +115,9 @@ responseArray.push(qr);
 question.responseStack = responseArray;
 a1.Question2 = question;
 
-myServer.get('/', (request, response)=> {
+myServer.use('/', express.static('public'));
+
+myServer.get("/activity1", (request, response)=>{
     response.json(a1);
 });
 

@@ -1,11 +1,12 @@
 let loadedUp = false;
-
+let currentActivity;
 window.addEventListener('load', function () {
 
-    fetch('/')
+    fetch('/activity1')
     .then(resp => resp.json())
     .then(data => {
-        console.log(data);
+        currentActivity = data;
     });
     loadedUp = true;
 });
+
