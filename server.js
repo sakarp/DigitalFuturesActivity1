@@ -1,8 +1,4 @@
-const { json } = require('body-parser');
-let express = require('express');
-const { Server } = require('http');
-let myServer = express();
-
+//create object later replaced by db
 let a1 = new Object();
 let imgStack = {};
 let stackArray = new Array();
@@ -27,15 +23,17 @@ a1.Countries.push({ "Country": "India", "Region": "South Asia" });
 
 //set up image stack
 imgStack.stackIntro = "This beautiful photo was used on the London Metro to promote the Visit Nepal 2020 campaign. But it ran into a lot of controversy.";
-imgStack.stackImg1 = "images\\thaiBuddha.png";
-imgStack.stackImg2 = "images\\thaiBuddha.png";
+imgStack.stackImg1 = "images/thaiBuddha.png";
+imgStack.stackImg2 = "images/thaiBuddha.png";
+imgStack.stackExplain = "<a href=\"https://kathmandupost.com/national/2019/07/08/in-embarrassing-gaffe-tourism-campaign-for-nepal-promotes-a-picture-from-thailand-in-london\" target=\"_blank\"> The Kathmandu Post </a> reports that Visit Nepal campaign used a photo of Thailand instead of Nepal for their promotion. This image was chosen from Shutterstock, a stock photo service, and was not properly verified by the designers nor the authorities."
 
 stackArray.push(imgStack);
 
-imgStack.stackIntro - "test 2";
-imgStack.stackImg1 = "images\\parodyModified.png";
-imgStack.stackImg2 = "images\\parodyReal.png";
+imgStack = {};
 
+imgStack.stackIntro = "This is the test for stack 2.";
+imgStack.stackImg1 = "images/parodyModified.png";
+imgStack.stackImg2 = "images/parodyReal.png";
 stackArray.push(imgStack);
 
 a1.ImageStack = stackArray;
@@ -48,6 +46,7 @@ qr.link = "";
 qr.isCorrect = false;
 
 responseArray.push(qr);
+qr = {};
 
 qr.radioText = "Photo is used without permission";
 qr.radioValue = "permission";
@@ -56,6 +55,7 @@ qr.link = "";
 qr.isCorrect = true;
 
 responseArray.push(qr);
+qr = {};
 
 qr.radioText = "Photo is of the wrong place/event";
 qr.radioValue = "wrong";
@@ -64,6 +64,7 @@ qr.link = "";
 qr.isCorrect = false;
 
 responseArray.push(qr);
+qr = {};
 
 qr.radioText = "The issue is something else";
 qr.radioValue = "other";
@@ -95,6 +96,7 @@ qr.link = "";
 qr.isCorrect = false;
 
 responseArray.push(qr);
+qr = {};
 
 qr.radioText = "to knowingly undermine society";
 qr.radioValue = "undermine";
@@ -103,6 +105,7 @@ qr.link = "";
 qr.isCorrect = false;
 
 responseArray.push(qr);
+qr = {};
 
 qr.radioText = "result of poor/sloppy research";
 qr.radioValue = "sloppy";
@@ -111,16 +114,50 @@ qr.link = "";
 qr.isCorrect = true;
 
 responseArray.push(qr);
+qr = {};
 
 question.responseStack = responseArray;
 a1.Question2 = question;
 
-myServer.use('/', express.static('public'));
 
-myServer.get("/activity1", (request, response)=>{
-    response.json(a1);
+//-------------------------
+
+const { json } = require('body-parser');
+const express = require('express');
+const { Server } = require('http');
+let app = express();
+const path = require('path');
+app.set('views', path.join(__dirname, 'views'));
+app.set('view engine', 'pug');
+
+app.use(express.static("public"));
+
+app.listen(3000, ()=>{
+    console.log("listening on port 3000");
 });
 
-myServer.listen(3000, ()=>{
-    console.log("server is listening at 3000");
+app.get("/", (req, res)=>{
+    //console.log(req);
+    res.send("Welcome to the Digital Futures Initiative");
 });
+
+app.get("/activity1", (req, res)=>{
+    let page = req.query.page;
+    if(page){
+        a1.currentPage = page;
+        res.render("index.pug", {a1});
+    }
+    else{
+        a1.currentPage = 1; 
+        res.render("index.pug", {a1});
+    }
+});
+
+
+//must be the last item
+app.use((req, res, next) => {
+    res.status(404).send({
+        status: 404,
+        error: 'Not found'
+    })
+})
