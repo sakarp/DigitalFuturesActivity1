@@ -1,6 +1,12 @@
 extends a1layout.pug
 
 block append headBlock
+    style. 
+        #bgi{
+        background-image: linear-gradient(to bottom, rgba(255, 255, 255, 0.8), rgba(214, 212, 214, 0.8)),url(/images/thaiBuddhaSmall.png), url(/images/midbreak.png), url(/images/thaiBuddhaSmall.png);
+        background-repeat: no-repeat, no-repeat, no-repeat;
+        background-position: center top, center center, center bottom;}
+
     script. 
         let currentPage;
         window.addEventListener('load', function () {
@@ -36,7 +42,10 @@ block append headBlock
         }
 
 block append myBody
-    .mainStuff
+    //set id to bgi when you need background images to show
+    if a1.currentPage == 4 || a1.currentPage == 5
+        - var mooID = "bgi";
+    .mainStuff(id = mooID) 
         .uptext
             //on page 1 show intro
             if a1.currentPage == 1
@@ -78,6 +87,16 @@ block append myBody
             if a1.currentPage == 2
                 p.
                     #{a1.ImageStack[0].stackExplain}
+        // page 4 do the write over
+        if a1.currentPage == 4 || a1.currentPage == 5
+            .writeOver
+                h2  #{a1.SocialConsequences.reflectHeader} 
+                h4   #{a1.SocialConsequences.reflectQuestion1}
+                <br><br><br><br><br><br>
+                h4   #{a1.SocialConsequences.reflectQuestion2}
+                .slidecontainer
+                    input(type="range" min="1" max="100" value="50" class="slider" id="conRange")
+                    <br><br><br><br><br><br>
     
     .bottomPart
         a(class='NextButton myButton' id="next" onclick="nextPage()") Next &raquo;

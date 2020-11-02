@@ -77,6 +77,7 @@ question.responseStack = responseArray;
 
 a1.Question1 = question;
 
+sCo.reflectHeader = "REFLECT";
 sCo.reflectQuestion1 = "What are the social consequences of this image?";
 sCo.reflectQuestion2 = "How serious are the social conseqeuences?";
 sCo.mild = "mild"
