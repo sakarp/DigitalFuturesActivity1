@@ -126,6 +126,19 @@ a1.Question2 = question;
 const { json } = require('body-parser');
 const express = require('express');
 const { Server } = require('http');
+const mongoose = require('mongoose');
+
+//mongoose.connect('mongodb://localhost:27017/myTest');
+//const db = mongoose.connection;
+
+//db.on('error', (err)=>{
+//    console.log(err);
+//});
+
+//db.once('open', ()=>{
+//    console.log("DB Connection Successful");
+//});
+
 let app = express();
 const path = require('path');
 app.set('views', path.join(__dirname, 'views'));
@@ -133,7 +146,7 @@ app.set('view engine', 'pug');
 
 app.use(express.static("public"));
 
-app.listen(3000, ()=>{
+app.listen(process.env.PORT || 3000, ()=>{
     console.log("listening on port 3000");
 });
 
