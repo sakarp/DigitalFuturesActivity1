@@ -126,7 +126,7 @@ a1.Question2 = question;
 const { json } = require('body-parser');
 const express = require('express');
 const { Server } = require('http');
-const mongoose = require('mongoose');
+//const mongoose = require('mongoose');
 
 //mongoose.connect('mongodb://localhost:27017/myTest');
 //const db = mongoose.connection;
@@ -157,13 +157,16 @@ app.get("/", (req, res)=>{
 
 app.get("/activity1", (req, res)=>{
     let page = req.query.page;
+    let currentStack = 0;
     if(page){
         a1.currentPage = page;
-        res.render("index.pug", {a1});
+        a1.currentStack = currentStack; 
+        res.render("imagestack.pug", {a1});
     }
     else{
         a1.currentPage = 1; 
-        res.render("index.pug", {a1});
+        let currentStack = 0;
+        res.render("imagestack.pug", {a1});
     }
 });
 
