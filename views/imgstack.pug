@@ -11,8 +11,9 @@ block append headBlock
         let currentPage;
         window.addEventListener('load', function () {
             currentPage = #{a1.currentPage};
+            currentStack = #{a1.currentStack};
+            rStr = #{a1.rStr};
             loadedUp = true;
-            console.log("all loaded up and current page is " + currentPage);
         });
 
         function nextPage(){
@@ -23,7 +24,9 @@ block append headBlock
             //if currentPage is 2
 
             let nextPageCall = currentPage + 1; 
-            let callString = "/activity1/?page=" + nextPageCall;
+            let callString = "/activity1/?page=" + nextPageCall 
+                            + "&" + "currentStack=" + currentStack 
+                            + "&" + "rStr=" + rStr;
             let nextLink = document.getElementById("next");
             nextLink.setAttribute("href", callString);
         }
@@ -36,7 +39,9 @@ block append headBlock
             //if currentPage is 2
 
             let previousPageCall = currentPage - 1; 
-            let callString = "/activity1/?page=" + previousPageCall;
+            let callString = "/activity1/?page=" + previousPageCall 
+                                + "&" + "currentStack=" + currentStack
+                                + "&" + "rStr=" + rStr;
             let previousLink = document.getElementById("previous");
             previousLink.setAttribute("href", callString);
         }
@@ -50,7 +55,7 @@ block append myBody
             //on page 1 show intro
             if a1.currentPage == 1
                  p. 
-                    #{a1.ImageStack[0].stackIntro}
+                    #{a1.ImageStack[a1.currentStack].stackIntro}
 
             //on page 2 start with correct answer
             //show question -- then iterate through for correct answer 
@@ -63,12 +68,12 @@ block append myBody
         // if 1 or 2 show image
         if a1.currentPage == 1 || a1.currentPage == 2 || a1.currentPage == 3
             .showImage
-                - var imgsrc = "/" + a1.ImageStack[0].stackImg1;
+                - var imgsrc = "/" + a1.ImageStack[a1.currentStack].stackImg1;
                 img(src= imgsrc , alt="alt", width="300px" height="225px")
         //if page 3 show both real and manipualted image 
         if a1.currentPage == 3
             .showImage
-                -var imgsrc2 = "/" + a1.ImageStack[0].stackImg2;
+                -var imgsrc2 = "/" + a1.ImageStack[a1.currentStack].stackImg2;
                 img(src= imgsrc2 , alt="alt", width="300px" height="225px")
         // page 1 shows questions
         // page 2 show explainer text
@@ -86,9 +91,9 @@ block append myBody
                         <br>
             if a1.currentPage == 2
                 p.
-                    #{a1.ImageStack[0].stackExplain}
+                    #{a1.ImageStack[a1.currentStack].stackExplain}
         // page 4 do the write over
-        if a1.currentPage == 4 || a1.currentPage == 5
+        if a1.currentPage == 4
             .writeOver
                 h2  #{a1.SocialConsequences.reflectHeader} 
                 h4   #{a1.SocialConsequences.reflectQuestion1}
@@ -97,9 +102,21 @@ block append myBody
                 .slidecontainer
                     input(type="range" min="1" max="100" value="50" class="slider" id="conRange")
                     <br><br><br><br><br><br>
+        if a1.currentPage == 5
+            .writeOver
+                p. 
+                    #{a1.Question2.questionText}
+                form(action="" method="")
+                    each val, index in a1.Question2.responseStack
+                        - var myRadioName = a1.Question2.responseStack[index].radioName;
+                        - var myRadioValue =  a1.Question2.responseStack[index].radioValue;
+                        - var myRadioText = a1.Question2.responseStack[index].radioText;
+                        input(type='radio', name= myRadioName, id= myRadioValue, value= myRadioValue)
+                        label(for=myRadioValue) #{myRadioText}
+                        <br>
     
     .bottomPart
         a(class='NextButton myButton' id="next" onclick="nextPage()") Next &raquo;
 
-        if a1.currentPage > 1
+        if a1.currentPage > 1 || a1.currentStack > 0
             a(class="PreviousButton myButton" id="previous" onclick="previousPage()") &laquo; Previous;
