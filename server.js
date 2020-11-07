@@ -6,6 +6,9 @@ let question = new Object();
 let responseArray = new Array();
 let sCo = new Object();
 let qr = new Object();
+let reasonsArray = new Array();
+let sRO = new Object();
+let reasons = new Object();
 
 a1.TopLevelGroup = "Digital Citizenship";
 a1.SubGrouping = "DRUMS Literacy";
@@ -122,6 +125,23 @@ qr = {};
 question.responseStack = responseArray;
 a1.Question2 = question;
 
+reasons.reasonsIntro = "Why do people spread disinformation?";
+reasons.reasonsText = "Experts and researches suggest there are six resons that people or organization spread disinformation. Click on the links below to learn more about each of the reasons.";
+
+sRO.text = "reason 1";
+sRO.link = "www.karkhana.asia";
+
+reasonsArray.push(sRO);
+
+sRO = {};
+
+sRO.text = "reason 2";
+sRO.link = "www.karkhana.asia";
+
+reasonsArray.push(sRO);
+
+a1.reasons = reasons; 
+a1.reasons.reasonsStack = reasonsArray;
 //-------------------------
 
 const { json } = require("body-parser");

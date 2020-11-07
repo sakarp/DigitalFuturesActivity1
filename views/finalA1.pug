@@ -42,14 +42,16 @@ block append headBlock
 
 
 block append myBody
-    if a1.currentPage == 1
-        h1  It's happening 1!
-    
-    if a1.currentPage == 2
-        h1 It's happening 2!
-
+    .mainstuff
+        if a1.currentPage == 1
+            h3  #{a1.reasons.reasonsIntro} 
+            p  #{a1.reasons.reasonsText}
+            ul
+                each val, index in a1.reasons.reasonsStack
+                    li= a1.reasons.reasonsStack[index].text
+        if a1.currentPage == 2
+            h1 It's happening 2!
     .bottomPart
-        if a1.currentPage < 2
-            a(class='NextButton myButton' id="next" onclick="nextPage()") Next &raquo;
+        a(class='NextButton myButton' id="next" onclick="nextPage()") Next &raquo;
 
         a(class="PreviousButton myButton" id="previous" onclick="previousPage()") &laquo; Previous;
