@@ -7,7 +7,9 @@ let responseArray = new Array();
 let sCo = new Object();
 let qr = new Object();
 let reasonsArray = new Array();
+let reasonsList = new Array();
 let sRO = new Object();
+let sR1 = new Object();
 let reasons = new Object();
 
 a1.TopLevelGroup = "Digital Citizenship";
@@ -27,8 +29,10 @@ a1.Countries.push({ Country: "India", Region: "South Asia" });
 //set up image stack
 imgStack.stackIntro =
   "This beautiful photo was used on the London Metro to promote the Visit Nepal 2020 campaign. But it ran into a lot of controversy.";
-imgStack.stackImg1 = "images/thaiBuddha.png";
-imgStack.stackImg2 = "images/thaiBuddha.png";
+imgStack.stackImg1 = "/images/thaiBuddha.png";
+imgStack.stackImg1Small = "/images/thaiBuddhaSmall.png";
+imgStack.stackImg2 = "/images/thaiBuddha.png";
+imgStack.stackImg2Small = "/images/thaiBuddhaSmall.png";
 imgStack.stackExplain =
   '<a href="https://kathmandupost.com/national/2019/07/08/in-embarrassing-gaffe-tourism-campaign-for-nepal-promotes-a-picture-from-thailand-in-london" target="_blank"> The Kathmandu Post </a> reports that Visit Nepal campaign used a photo of Thailand instead of Nepal for their promotion. This image was chosen from Shutterstock, a stock photo service, and was not properly verified by the designers nor the authorities.';
 
@@ -140,8 +144,17 @@ sRO.link = "www.karkhana.asia";
 
 reasonsArray.push(sRO);
 
-a1.reasons = reasons; 
-a1.reasons.reasonsStack = reasonsArray;
+reasons.r1 = "no consequences"; 
+reasons.r2 = "mild consequcnes";
+reasons.r3 = "some consequences"; 
+reasons.r4 = "important consequences"; 
+reasons.r5 = "strong consequences"; 
+reasons.r6 = "severe consequences";
+
+reasons.reasonsStack = reasonsArray;
+a1.Reasons = reasons; 
+
+console.log(a1);
 //-------------------------
 
 const { json } = require("body-parser");

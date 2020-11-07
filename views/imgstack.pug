@@ -1,15 +1,10 @@
 extends a1layout.pug
 
 block append headBlock
-    style. 
-        #bgi{
-        background-image: linear-gradient(to bottom, rgba(255, 255, 255, 0.8), rgba(214, 212, 214, 0.8)),url(/images/thaiBuddhaSmall.png), url(/images/midbreak.png), url(/images/thaiBuddhaSmall.png);
-        background-repeat: no-repeat, no-repeat, no-repeat;
-        background-position: center top, center center, center bottom;}
-
     script. 
         let currentPage;
-        window.addEventListener('load', function () {
+        let myCon;
+        window.addEventListener('load', function(){
             currentPage = #{a1.currentPage};
             currentStack = #{a1.currentStack};
             rStr = #{a1.rStr};
@@ -46,6 +41,37 @@ block append headBlock
             previousLink.setAttribute("href", callString);
         }
 
+        function showSlider(newValue){
+            if (newValue < 10){
+                cons = "no consequences";
+            } else {
+                if (newValue < 25){
+                    cons = "mild consequences";
+                } else {
+                    if (newValue < 40) {
+                        cons = "some consequences";
+                    } else {
+                        if (newValue < 60){
+                            cons = "important consequences";
+                        } else {
+                            if (newValue < 80){
+                                cons = "strong consequences";
+                            } else {
+                                cons = "severe consequences";
+                            }
+                        }
+                    }
+                }
+            }
+            document.getElementById("myCon").innerHTML = "You believe there are <b>" + cons + "</b>";
+        }
+
+    style. 
+        #bgi{
+        background-image: linear-gradient(to bottom, rgba(255, 255, 255, 0.8), rgba(214, 212, 214, 0.8)),url(#{a1.ImageStack[a1.currentStack].stackImg1Small}), url(/images/midbreak.png), url(#{a1.ImageStack[a1.currentStack].stackImg2Small});
+        background-repeat: no-repeat, no-repeat, no-repeat;
+        background-position: top, center, bottom;}
+
 block append myBody
     //set id to bgi when you need background images to show
     if a1.currentPage == 4 || a1.currentPage == 5
@@ -60,27 +86,27 @@ block append myBody
             //on page 2 start with correct answer
             //show question -- then iterate through for correct answer 
             if a1.currentPage == 2
-                p. 
+                h3. 
                     #{a1.Question1.questionText}
                 each val, index in a1.Question1.responseStack
                     if a1.Question1.responseStack[index].isCorrect 
                         p ** #{a1.Question1.responseStack[index].radioText}
-        // if 1 or 2 show image
+        // if 1, 2 or 3 show image
         if a1.currentPage == 1 || a1.currentPage == 2 || a1.currentPage == 3
             .showImage
-                - var imgsrc = "/" + a1.ImageStack[a1.currentStack].stackImg1;
+                - var imgsrc = a1.ImageStack[a1.currentStack].stackImg1;
                 img(src= imgsrc , alt="alt", width="300px" height="225px")
         //if page 3 show both real and manipualted image 
         if a1.currentPage == 3
             .showImage
-                -var imgsrc2 = "/" + a1.ImageStack[a1.currentStack].stackImg2;
+                -var imgsrc2 = a1.ImageStack[a1.currentStack].stackImg2;
                 img(src= imgsrc2 , alt="alt", width="300px" height="225px")
         // page 1 shows questions
         // page 2 show explainer text
         .lowtext
             if a1.currentPage == 1
                 p. 
-                    #{a1.Question1.questionText}
+                    !{a1.Question1.questionText}
                 form(action="" method="")
                     each val, index in a1.Question1.responseStack
                         - var myRadioName = a1.Question1.responseStack[index].radioName;
@@ -91,7 +117,7 @@ block append myBody
                         <br>
             if a1.currentPage == 2
                 p.
-                    #{a1.ImageStack[a1.currentStack].stackExplain}
+                    !{a1.ImageStack[a1.currentStack].stackExplain}
         // page 4 do the write over
         if a1.currentPage == 4
             .writeOver
@@ -100,8 +126,11 @@ block append myBody
                 <br><br><br><br><br><br>
                 h4   #{a1.SocialConsequences.reflectQuestion2}
                 .slidecontainer
-                    input(type="range" min="1" max="100" value="50" class="slider" id="conRange")
-                    <br><br><br><br><br><br>
+                    input(type="range" min="1" max="100" value="50" class="slider" id="conRange" oninput="showSlider(this.value)" onchange="showSlider(this.value)")
+                    p(style="text-align:left; margin:0px 0px 16px") #{a1.SocialConsequences.mild} <span style="float:right;"> #{a1.SocialConsequences.severe}
+                    <br>
+                    p(id="myCon")
+                    <br><br><br><br><br>
         if a1.currentPage == 5
             .writeOver
                 p. 
