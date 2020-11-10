@@ -3,7 +3,6 @@ extends a1layout.pug
 block append headBlock
     script. 
         let currentPage;
-        let myCon;
         window.addEventListener('load', function(){
             currentPage = #{a1.currentPage};
             currentStack = #{a1.currentStack};
@@ -133,7 +132,7 @@ block append myBody
                     <br><br><br><br><br>
         if a1.currentPage == 5
             .writeOver
-                p. 
+                h3. 
                     #{a1.Question2.questionText}
                 form(action="" method="")
                     each val, index in a1.Question2.responseStack

@@ -40,9 +40,15 @@ stackArray.push(imgStack);
 
 imgStack = {};
 
-imgStack.stackIntro = "This is the test for stack 2.";
-imgStack.stackImg1 = "images/parodyModified.png";
-imgStack.stackImg2 = "images/parodyReal.png";
+imgStack.stackIntro =
+  "This photo was doing the rounds of the internet have a gathering of world leaders. While many people laughed at it they did not believe it :-) ";
+imgStack.stackImg1 = "/images/trumpHeadManipulated.png";
+imgStack.stackImg1Small = "/images/trumpHeadManipulatedSmall.png";
+imgStack.stackImg2 = "/images/trumpHeadReal.png";
+imgStack.stackImg2Small = "/images/trumpHeadRealSmall.png";
+imgStack.stackExplain =
+  'Changing images is very simple and easy with digital tools. This ability can be used to create a funny joke like this or something scarier.';
+
 stackArray.push(imgStack);
 
 a1.ImageStack = stackArray;
@@ -103,7 +109,6 @@ qr.radioText = "for financial gain";
 qr.radioValue = "financial";
 qr.radioName = "motive";
 qr.link = "";
-qr.isCorrect = false;
 
 responseArray.push(qr);
 qr = {};
@@ -112,7 +117,6 @@ qr.radioText = "to knowingly undermine society";
 qr.radioValue = "undermine";
 qr.radioName = "motive";
 qr.link = "";
-qr.isCorrect = false;
 
 responseArray.push(qr);
 qr = {};
@@ -121,7 +125,30 @@ qr.radioText = "result of poor/sloppy research";
 qr.radioValue = "sloppy";
 qr.radioName = "motive";
 qr.link = "";
-qr.isCorrect = true;
+
+responseArray.push(qr);
+qr = {};
+
+qr.radioText = "political distraction";
+qr.radioValue = "pdistract";
+qr.radioName = "motive";
+qr.link = "";
+
+responseArray.push(qr);
+qr = {};
+
+qr.radioText = "geniune political differences";
+qr.radioValue = "preal";
+qr.radioName = "motive";
+qr.link = "";
+
+responseArray.push(qr);
+qr = {};
+
+qr.radioText = "parody/fun/meme";
+qr.radioValue = "parody";
+qr.radioName = "motive";
+qr.link = "";
 
 responseArray.push(qr);
 qr = {};
@@ -132,17 +159,46 @@ a1.Question2 = question;
 reasons.reasonsIntro = "Why do people spread disinformation?";
 reasons.reasonsText = "Experts and researches suggest there are six resons that people or organization spread disinformation. Click on the links below to learn more about each of the reasons.";
 
-sRO.text = "reason 1";
+sRO.text = "to undermine society";
 sRO.link = "www.karkhana.asia";
 
 reasonsArray.push(sRO);
 
 sRO = {};
 
-sRO.text = "reason 2";
+sRO.text = "for financial gain";
 sRO.link = "www.karkhana.asia";
 
 reasonsArray.push(sRO);
+
+sRO = {};
+
+sRO.text = "result of sloppy or poor journalism";
+sRO.link = "www.karkhana.asia";
+
+reasonsArray.push(sRO);
+
+sRO = {};
+
+sRO.text = "to distract for political purpose";
+sRO.link = "www.karkhana.asia";
+
+reasonsArray.push(sRO);
+
+sRO = {};
+
+sRO.text = "because of actual ideological/political differences";
+sRO.link = "www.karkhana.asia";
+
+reasonsArray.push(sRO);
+
+sRO = {};
+
+sRO.text = "paradoy/fun/meme";
+sRO.link = "www.karkhana.asia";
+
+reasonsArray.push(sRO);
+
 
 reasons.r1 = "no consequences"; 
 reasons.r2 = "mild consequcnes";
@@ -153,8 +209,6 @@ reasons.r6 = "severe consequences";
 
 reasons.reasonsStack = reasonsArray;
 a1.Reasons = reasons; 
-
-console.log(a1);
 //-------------------------
 
 const { json } = require("body-parser");
@@ -185,7 +239,6 @@ app.listen(process.env.PORT || 3000, () => {
 });
 
 app.get("/", (req, res) => {
-  //console.log(req);
   res.send("Welcome to the Digital Futures Initiative");
 });
 
@@ -252,7 +305,6 @@ app.get("/activity1", (req, res) => {
   if (rStr == 2) {
     // check if page is 0. this means user is trying to come back to stack
     if (page == 0) {
-      console.log("in page 0");
       rStr = 1; //switch the file back
       page = 5; //switch the page to the last
       currentStack = a1.ImageStack.length - 1; //set stack to image on stack

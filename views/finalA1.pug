@@ -42,15 +42,16 @@ block append headBlock
 
 
 block append myBody
-    .mainstuff
-        if a1.currentPage == 1
-            h3  #{a1.reasons.reasonsIntro} 
-            p  #{a1.reasons.reasonsText}
-            ul
-                each val, index in a1.reasons.reasonsStack
-                    li= a1.reasons.reasonsStack[index].text
-        if a1.currentPage == 2
-            h1 It's happening 2!
+    .mainstuff(style="margin: 10px")
+        .uptext
+            if a1.currentPage == 1
+                h3  #{a1.Reasons.reasonsIntro} 
+                p  #{a1.Reasons.reasonsText}
+                ul
+                    each val, index in a1.Reasons.reasonsStack
+                        li=  a1.Reasons.reasonsStack[index].text
+            if a1.currentPage == 2
+                h1 It's happening 2!
     .bottomPart
         a(class='NextButton myButton' id="next" onclick="nextPage()") Next &raquo;
 
