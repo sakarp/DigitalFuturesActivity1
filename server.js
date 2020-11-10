@@ -51,6 +51,20 @@ imgStack.stackExplain =
 
 stackArray.push(imgStack);
 
+imgStack = {};
+
+imgStack.stackIntro =
+  "During the last Indian elections, it appeared that these famous Bollywood stars were campaigning for one of the major political parties. But people were suspicious.  ";
+imgStack.stackImg1 = "/images/ranvirManipulated.png";
+imgStack.stackImg1Small = "/images/ranvirManipulatedSmall.png";
+imgStack.stackImg2 = "/images/ranvirReal.png";
+imgStack.stackImg2Small = "/images/ranvirRealSmall.png";
+imgStack.stackExplain =
+  '<a href="https://scroll.in/article/919785/fact-check-did-bollywood-stars-ranveer-singh-and-deepika-padukone-really-campaign-for-the-bjp" target="_blank"> Scroll.in  </a> reports that this image was manipulated from a photo the Bollywood couple took after a visit to a temple.';
+
+stackArray.push(imgStack);
+
+
 a1.ImageStack = stackArray;
 
 question.questionText = "Can you guess why?";
