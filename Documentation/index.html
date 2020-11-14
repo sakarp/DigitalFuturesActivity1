@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h2>Read Me</h2>
+    <p>
+        Based on feedback from Project 1 and conversation with Craig, I tried to prioritize the user
+        experience on this project. I started with looking at how people would access this project
+        in my target sites i.e. South Asia mainly, and noted that most online experiences would be
+        through mobile phones. Thus, my design was mobile first. <br>
+        <br>
+    </p>
+    <h3>Focus on one user experience</h3>
+    <p>
+        Though this project was conceputalized as a larger platfrom "Digital Futures Initiative"
+        that will accomodate many kinds of content that is useful in the global south. I did not
+        choose to start by building out the platform. Rather I took one small piece of that overall
+        experience: a specifc lesson on image manipulation that will fall under the digital citizenship
+        content and built that out. <br>
+        <br>
+        I found that process very useful because it actually began to reveal what would be needed from
+        one users prespective, which I think enriched my understanding of the system. For e.g it was not
+        clear to me initially if a chat/socket type solution would fit into this project. But as I built
+        the user experience out, it has become clear that such a technical implementation would be
+        useful each time a facilitator tries to run a session. <br>
+        <br>
+    </p>
+    <h3>Technical Resources</h3>
+    <p>
+        Technically the project uses Nodejs and Express to spin up a server and serve both
+        html and js pages up dynamically. It also uses Pug as a templating engine. For the Nodejs
+        and Express I largely found the resources shared in class to be sufficient with some use
+        of stackoverflow/stackexchange to support problems. <br>
+        <br>
+        For Pug, I relied heavily on Pug documentation and also stackexchange. <br>
+        <br>
+        Technically the hardest part was to conceptualize the app. Since I have not really
+        worked with webtech before I was not sure if doing it the way I did (putting all logic
+        on the server) was appropriate or if more the logic should be pushed client side. <br>
+        <br>
+        To help understand this, I did about 3 "build your own app with MongoDB and Node" tutorials
+        from youtube. These helped me see how others think about the project architecture. BUT it
+        feels like the tutorial projects are way too simple to actually inform my choice. Because I was 
+        feeling stuck, I decide to just pick a path. I picked the templating engine/server side route
+        mostly because I had never done it before and it was a good way to learn.<br>
+        <br>
+        For the rest of this semester, I am committed to this architecture choice, but as I plan to
+        expand this project into my final project. I plan to revisit it. I am curious if just sending a 
+        JSON to the client, serving it up a js file and letting it do all the processing makes sense. Or if 
+        such a choice would actually make it easier to work in low bandwidth environments.  <br>
+        <br>
+    </p>
+    <h2>Next Steps</h2>
+    <p>
+        Looking forward to I want to keep with this project. Also I want to keep with my focus on
+        a limited user experience. Thus I think the next set of features I want to add are:
+        <ul>
+            <li>Modify my lesson plan into other languages/contexts. USER - Content Creator</li>
+            <li>Create an instance of a lesson and invite end users to join it. USER - Facilitator</li>
+            <li>Ask questions and have a realtime conversation in parallel with lesson. USER - End User</li>
+        </ul>
+    </p>
+
+
+</body>
+</html>
