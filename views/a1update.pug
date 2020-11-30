@@ -1,0 +1,138 @@
+extends layout.pug
+
+block append headBlock
+    link(rel="stylesheet", href="/a1updatestyle.css")
+
+block append myBody
+    .topPart
+        h2 Digital Futures <br> Initiative
+    .mainStuff
+        button(type="button" class="collapsible active") Verification
+        div(class="content" id="verificationDiv" style="display: block")
+            h2  Verify
+            p.   
+                Top Level Grouping: #{myA1.TopLevelGroup} <br>
+                SubGrouping: #{myA1.SubGrouping} <br>
+                Activity Grouping: #{myA1.ActivityGrouping} <br>
+                Activity Name: #{myA1.ActivityName} <br>
+                Language: #{myA1.Language} <br>
+                Age Group <br>
+            ul 
+                each val, index in myA1.AgeGroups
+                    li= myA1.AgeGroups[index]
+            p   Countries/Regions <br> 
+            ul 
+                each val, index in myA1.Countries
+                    li= myA1.Countries[index].Country + ", " + myA1.Countries[index].Region
+            p Are you sure you want to make a new one rather than use another? (put a button here)
+        button(type="button" class="collapsible") Image Stack
+        div(id="iStackDiv" class="content")
+            h2  Image Stack
+            p   This activity has #{myA1.ImageStack.length} image stacks
+            each val, index in myA1.ImageStack
+                - var stackNum = index + 1;
+                - var divID = "iStack" + stackNum;
+                button(type="button" class="collapsible") Image Stack #{stackNum} 
+                div(id=divID class="content")
+                    p.   
+                        Stack Intro: #{myA1.ImageStack[index].stackIntro} <br>
+                        Image One: #{myA1.ImageStack[index].stackImg1} <br>
+                        Image Two: #{myA1.ImageStack[index].stackImg2}  <br>
+                        Explanation: !{myA1.ImageStack[index].stackExplain} <br>
+                        Is Same: #{myA1.ImageStack[index].isSame} <br>
+                        Correct Answer: #{myA1.ImageStack[index].correctAnswer} <br> 
+            p   add new image stack
+        button(type="button" class="collapsible") Question One 
+        div(id="qOne" class="content")
+            div(class="column1")
+                h2 Question One
+                <label for="q1QT"> Change question 1 from <b> #{myA1.Question1.questionText} </b> TO <br> </label>
+                <input type="text" id="q1QT" name="q1QT"> <br> <br>
+                p   Change the user responses below:
+                each val, index in myA1.Question1.responseStack
+                    - var myAnswer = myA1.Question1.responseStack[index].radioText;
+                    - var labelName = "q1RS" + index;
+                    label(for=labelName) from <b> #{myAnswer} </b> TO 
+                    input(type=text id=labelName name=labelName) 
+                    <br>
+            div(class="column2")
+                img(src='/images/lessonupdate/Question1.png', alt="image of what question one looks like on the app", width='90%')
+        button(type="button" class="collapsible") Social Consequences  
+        div(id="sCo" class="content")
+            div(class="column1")
+                h2  Social Consequences
+                p   NOTE: Only update the items you want to change. All other items will be preserved.
+                p.
+                    <label for="scHeader">Change the header from: <b> #{myA1.SocialConsequences.reflectHeader} </b> TO</label>
+                    <input type="text" id="header" name="header"><br><br>
+
+                    <label for="scQ1"> Change Reflect Question 1 from: <br> <b> 
+                                #{myA1.SocialConsequences.reflectQuestion1} </b> <br> TO </label>
+                    <input type="text" id="scQ1" name="scQ1"><br> <br>
+                    
+                    <label for="scQ2"> Change Reflect Question 2 from: <br> <b> 
+                                #{myA1.SocialConsequences.reflectQuestion2} </b> <br> TO </label>
+                    <input type="text" id="scQ2" name="scQ2"><br> <br>
+
+                    <label for="mild"> Change <b> #{myA1.SocialConsequences.mild}</b> TO </label>
+                    <input type="text" id="mild" name="mild">
+                    <label for="severe"> and <b> #{myA1.SocialConsequences.severe} </b> TO  </label>  
+                    <input type="text" id="server" name="severe"> <br> <br>
+
+                    <label for="leadCon"> Change the lead text for the consequences from <b> #{myA1.SocialConsequences.cLeadText}</b> TO <br> </label>
+                    <input type="text" id="leadCon" name="leadCon"> <br> <br>
+                    
+                    Change the consequence levels from <br>
+                    <label for="c1"> <b> #{myA1.SocialConsequences.c1Text} </b>  TO </label>
+                    <input = "text" id="c1" name="c1"> <br>
+
+                    <label for="c2"> <b> #{myA1.SocialConsequences.c2Text} </b>  TO </label>
+                    <input = "text" id="c2" name="c2"> <br>
+
+                    <label for="c3"> <b> #{myA1.SocialConsequences.c3Text} </b>  TO </label>
+                    <input = "text" id="c3" name="c3"> <br>
+
+                    <label for="c4"> <b> #{myA1.SocialConsequences.c4Text} </b>  TO </label>
+                    <input = "text" id="c4" name="c4"> <br>
+
+                    <label for="c5"> <b> #{myA1.SocialConsequences.c5Text} </b>  TO </label>
+                    <input = "text" id="c5" name="c5"> <br>
+    
+                    <label for="c6"> <b> #{myA1.SocialConsequences.c6Text} </b>  TO </label>
+                    <input = "text" id="c6" name="c6"> <br>
+            div(class="column2")
+                img(src='/images/lessonupdate/SocialConsequences.png', alt="image of the social consequences screen", width='90%')
+        button(type="button" class="collapsible") Question Two 
+        div(id="qTwo" class="content")
+            h2  Question Two
+            p   Question Text: #{myA1.Question2.questionText}
+            ul
+            each val, index in myA1.Question2.responseStack
+                li= myA1.Question2.responseStack[index].radioText
+                li= myA1.Question2.responseStack[index].radioValue
+                li= myA1.Question2.responseStack[index].radioName
+                li= myA1.Question2.responseStack[index].link
+        button(type="button" class="collapsible") Motivation 
+        div(id="motivation" class="content")
+            h2  Motivations For Disinformation
+            p.   
+                #{myA1.Reasons.reasonsIntro}
+                #{myA1.Reasons.reasonsText}
+            ul
+            each val, index in myA1.Reasons.reasonsStack
+                li= myA1.Reasons.reasonsStack[index].text
+                li= myA1.Reasons.reasonsStack[index].link
+    script. 
+        var coll = document.getElementsByClassName("collapsible");
+        var i;
+        for (i = 0; i < coll.length; i++) {
+            coll[i].addEventListener("click", function() {
+                this.classList.toggle("active");
+                var content = this.nextElementSibling;
+                if (content.style.display === "block") {
+                    content.style.display = "none";
+                } else {
+                        content.style.display = "block";
+                }
+            });
+        }

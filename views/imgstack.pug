@@ -2,6 +2,8 @@ extends a1layout.pug
 
 block append headBlock
     script. 
+        let toPrint = '#{a1.pageOfPage}';
+    script. 
         let currentPage;
         window.addEventListener('load', function(){
             currentPage = #{a1.currentPage};
@@ -18,6 +20,10 @@ block append headBlock
             //if currentPage is 2
 
             let nextPageCall = currentPage + 1; 
+            //if the stack does not have an manipulated image then skip showing both
+            if(#{a1.ImageStack[a1.currentStack].isSame} && nextPageCall == 3){
+                nextPageCall++;
+            }
             let callString = "/activity1/?page=" + nextPageCall 
                             + "&" + "currentStack=" + currentStack 
                             + "&" + "rStr=" + rStr;
@@ -26,13 +32,10 @@ block append headBlock
         }
 
         function previousPage(){
-            //if currentPage is 1
-            //include code below to check if atleast one radio item is selected
-            //var checkRadio = document.querySelector('input[name="theIssue"]:checked');
-
-            //if currentPage is 2
-
             let previousPageCall = currentPage - 1; 
+            if(#{a1.ImageStack[a1.currentStack].isSame} && previousPageCall == 3){
+                previousPageCall--;
+            }
             let callString = "/activity1/?page=" + previousPageCall 
                                 + "&" + "currentStack=" + currentStack
                                 + "&" + "rStr=" + rStr;
@@ -41,28 +44,29 @@ block append headBlock
         }
 
         function showSlider(newValue){
+        
             if (newValue < 10){
-                cons = "no consequences";
+                cons = '#{a1.SocialConsequences.c1Text}';
             } else {
                 if (newValue < 25){
-                    cons = "mild consequences";
+                    cons = '#{a1.SocialConsequences.c2Text}';
                 } else {
                     if (newValue < 40) {
-                        cons = "some consequences";
+                        cons = '#{a1.SocialConsequences.c3Text}';
                     } else {
                         if (newValue < 60){
-                            cons = "important consequences";
+                            cons = '#{a1.SocialConsequences.c4Text}';
                         } else {
                             if (newValue < 80){
-                                cons = "strong consequences";
+                                cons = '#{a1.SocialConsequences.c5Text}';
                             } else {
-                                cons = "severe consequences";
+                                cons = '#{a1.SocialConsequences.c6Text}';
                             }
                         }
                     }
                 }
             }
-            document.getElementById("myCon").innerHTML = "You believe there are <b>" + cons + "</b>";
+            document.getElementById("myCon").innerHTML = '#{a1.SocialConsequences.cLeadText}' + " <b>" + cons + "</b>";
         }
 
     style. 
@@ -87,19 +91,19 @@ block append myBody
             if a1.currentPage == 2
                 h3. 
                     #{a1.Question1.questionText}
-                each val, index in a1.Question1.responseStack
-                    if a1.Question1.responseStack[index].isCorrect 
-                        p ** #{a1.Question1.responseStack[index].radioText}
+                p. 
+                    ** 
+                    #{a1.ImageStack[a1.currentStack].correctAnswer}
         // if 1, 2 or 3 show image
         if a1.currentPage == 1 || a1.currentPage == 2 || a1.currentPage == 3
             .showImage
                 - var imgsrc = a1.ImageStack[a1.currentStack].stackImg1;
-                img(src= imgsrc , alt="alt", width="300px" height="225px")
+                img(id="mainImages" src= imgsrc , alt="alt")
         //if page 3 show both real and manipualted image 
         if a1.currentPage == 3
             .showImage
                 -var imgsrc2 = a1.ImageStack[a1.currentStack].stackImg2;
-                img(src= imgsrc2 , alt="alt", width="300px" height="225px")
+                img(id="mainImages" src= imgsrc2 , alt="alt")
         // page 1 shows questions
         // page 2 show explainer text
         .lowtext
@@ -121,9 +125,9 @@ block append myBody
         if a1.currentPage == 4
             .writeOver
                 h2  #{a1.SocialConsequences.reflectHeader} 
-                h4   #{a1.SocialConsequences.reflectQuestion1}
+                h4  #{a1.SocialConsequences.reflectQuestion1}
                 <br><br><br><br><br><br>
-                h4   #{a1.SocialConsequences.reflectQuestion2}
+                h4  #{a1.SocialConsequences.reflectQuestion2}
                 .slidecontainer
                     input(type="range" min="1" max="100" value="50" class="slider" id="conRange" oninput="showSlider(this.value)" onchange="showSlider(this.value)")
                     p(style="text-align:left; margin:0px 0px 16px") #{a1.SocialConsequences.mild} <span style="float:right;"> #{a1.SocialConsequences.severe}
@@ -144,7 +148,7 @@ block append myBody
                         <br>
     
     .bottomPart
+        p(style="text-align: center")   #{a1.pageOfPage}
         a(class='NextButton myButton' id="next" onclick="nextPage()") Next &raquo;
-
         if a1.currentPage > 1 || a1.currentStack > 0
             a(class="PreviousButton myButton" id="previous" onclick="previousPage()") &laquo; Previous;

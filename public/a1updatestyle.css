@@ -1,0 +1,62 @@
+.topPart {
+  padding: 5px;
+  height: 80px;
+  font-size: large;
+  font-weight: bold;
+  background: black;
+  color: #ffffff;
+  vertical-align: middle;
+}
+
+.maincontainer {
+  width: 90%;
+  margin: auto;
+  /*border: solid;
+  border-color: black;
+  border-width: 2px;*/
+}
+
+.collapsible {
+    background-color: #777;
+    color: white;
+    cursor: pointer;
+    padding: 18px;
+    width: 100%;
+    border: none;
+    text-align: left;
+    outline: none;
+    font-size: 15px;
+  }
+  
+  .active, .collapsible:hover {
+    background-color: #555;
+  }
+  
+  .content {
+    padding: 0 18px;
+    display: none;
+    overflow: hidden;
+    background-color: #f1f1f1;
+  }
+
+  .column1{
+    width: 65%;
+    float: left;
+  }
+
+  .column2{
+    width: 35%;
+    float: left;
+  }
+
+  .collapsible:after {
+    content: '\02795'; /* Unicode character for "plus" sign (+) */
+    font-size: 13px;
+    color: white;
+    float: right;
+    margin-left: 5px;
+  }
+  
+  .active:after {
+    content: "\2796"; /* Unicode character for "minus" sign (-) */
+  }

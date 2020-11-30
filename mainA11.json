@@ -1,0 +1,158 @@
+{
+	"TopLevelGroup": "Digital Citizenship",
+	"SubGrouping": "DRUMS Literacy",
+	"ActivityGrouping": "Is Seeing Believing?",
+	"ActivityName": "Consequences and Motivations for Image Manipulation",
+	"Language": "English",
+	"AgeGroups": ["15-18", "19-24", "24+"],
+	"Countries": [{
+			"Country": "Nepal",
+			"Region": "South Asia"
+		},
+		{
+			"Country": "India",
+			"Region": "South Asia"
+		}
+	],
+	"ImageStack": [{
+		"stackIntro": "This beautiful photo was used on the London Metro to promote the Visit Nepal 2020 campaign. But it ran into a lot of controversy.",
+		"stackImg1": "/images/thaiBuddha.png",
+		"stackImg1Small": "/images/thaiBuddhaSmall.png",
+		"stackImg2": "/images/thaiBuddha.png",
+		"stackImg2Small": "/images/thaiBuddhaSmall.png",
+		"stackExplain": "<a href='https: //kathmandupost.com/national/2019/07/08/in-embarrassing-gaffe-tourism-campaign-for-nepal-promotes-a-picture-from-thailand-in-london' target='_blank'> The Kathmandu Post </a> reports that Visit Nepal campaign used a photo of Thailand instead of Nepal for their promotion. This image was chosen from Shutterstock, a stock photo service, and was not properly verified by the designers nor the authorities.",
+		"isSame": true,
+		"correctAnswer": "Photo is of the wrong place/event"
+	},
+	{
+		"stackIntro": "This photo was doing the rounds of the internet have a gathering of world leaders. While many people laughed at it they did not believe it :-) ",
+		"stackImg1":  "/images/trumpHeadManipulated.png",
+		"stackImg1Small":  "/images/trumpHeadManipulatedSmall.png",
+		"stackImg2":  "/images/trumpHeadReal.png",
+		"stackImg2Small":  "/images/trumpHeadRealSmall.png",
+		"stackExplain": "Changing images is very simple and easy with digital tools. This ability can be used to create a funny joke like this or something scarier.",
+		"isSame":  false,
+		"correctAnswer":  "Photo is manipulated"
+	},
+	{
+		"stackIntro": "During the last Indian elections, it appeared that these famous Bollywood stars were campaigning for one of the major political parties. But people were suspicious.  ",
+		"stackImg1":  "/images/ranvirManipulated.png",
+		"stackImg1Small":  "/images/ranvirManipulatedSmall.png",
+		"stackImg2":  "/images/ranvirReal.png",
+		"stackImg2Small":  "/images/ranvirRealSmall.png",
+		"stackExplain": "'<a href='https://scroll.in/article/919785/fact-check-did-bollywood-stars-ranveer-singh-and-deepika-padukone-really-campaign-for-the-bjp' target='_blank'> Scroll.in  </a> reports that this image was manipulated from a photo the Bollywood couple took after a visit to a temple.",
+		"isSame":  false,
+		"correctAnswer":  "Photo is manipulated"
+	}
+],
+	"Question1": {
+		"questionText": "Can you guess why?",
+		"responseStack": [{
+				"radioText": "Photo is manipulated",
+				"radioValue": "manipulated",
+				"radioName": "theIssue",
+				"link": ""
+			},
+			{
+				"radioText": "Photo is used without permission",
+				"radioValue": "permission",
+				"radioName": "theIssue",
+				"link": ""
+			},
+			{
+				"radioText": "Photo is of the wrong place/event",
+				"radioValue": "wrong",
+				"radioName": "theIssue",
+				"link": ""
+			},
+			{
+				"radioText": "The issue is something else",
+				"radioValue": "other",
+				"radioName": "theIssue",
+				"link": ""
+			}
+		]
+	},
+	"SocialConsequences": {
+		"reflectHeader": "REFLECT",
+		"reflectQuestion1": "What are the social consequences of this image?",
+		"reflectQuestion2": "How serious are the social consequences?",
+		"mild": "mild",
+		"severe": "severe",
+		"c1Text": "no consequences",
+		"c2Text": "mild consequcnes",
+		"c3Text": "some consequences",
+		"c4Text": "important consequences",
+		"c5Text": "strong consequences",
+		"c6Text": "severe consequences",
+		"cLeadText": "You believe that there are"
+	},
+	"Question2": {
+		"questionText": "What was the motivation for this disinformation?",
+		"responseStack": [{
+				"radioText": "for financial gain",
+				"radioValue": "financial",
+				"radioName": "motive",
+				"link": ""
+			},
+			{
+				"radioText": "to knowingly undermine society ",
+				"radioValue": "undermine",
+				"radioName": "motive",
+				"link": ""
+			},
+			{
+				"radioText": "result of poor / sloppy research ",
+				"radioValue": "sloppy",
+				"radioName": "motive ",
+				"link": ""
+			},
+			{
+				"radioText": "political distraction ",
+				"radioValue": "pdistract ",
+				"radioName": "motive",
+				"link": ""
+			},
+			{
+				"radioText": "geniune political differences",
+				"radioValue": "preal",
+				"radioName": "motive",
+				"link": ""
+			},
+			{
+				"radioText": "parody/fun/meme",
+				"radioValue": "parody",
+				"radioName": "motive",
+				"link": ""
+			}
+		]
+	},
+	"Reasons": {
+		"reasonsIntro": "Why do people spread disinformation?",
+		"reasonsText": "Experts and researches suggest there are six resons that people or organization spread disinformation. Click on the links below to learn more about each of the reasons.",
+		"reasonsStack": [{
+				"text": "to undermine society",
+				"link": "www.karkhana.asia"
+			},
+			{
+				"text": "for financial gain",
+				"link": "www.karkhana.asia"
+			},
+			{
+				"text": "result of sloppy or poor journalism",
+				"link": "www.karkhana.asia"
+			},
+			{
+				"text": "to distract for political purpose",
+				"link": "www.karkhana.asia"
+			}, {
+				"text": "because of actual ideological/political differences",
+				"link": "www.karkhana.asia"
+			},
+			{
+				"text": "paradoy/fun/meme",
+				"link": "www.karkhana.asia"
+			}
+		]
+	}
+}
