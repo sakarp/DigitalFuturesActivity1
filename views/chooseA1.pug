@@ -1,0 +1,139 @@
+extends a1layout.pug
+
+block append headBlock
+    script. 
+        function createNew(x){
+
+            let callStringPost = "/createNewUpdateA1"
+            let callStringGet;
+            let myJSON = !{JSON.stringify(myA1)};
+            let toSend = myJSON.filter(myJSON => myJSON._id == x);
+            //delete id so that it does not duplicate in db
+            delete toSend[0]._id;
+            let toSendStr = JSON.stringify(toSend);
+
+            const otherParam = {
+                            headers: {'content-type': 'application/json; charset=utf-8'},
+                            body: toSendStr,
+                            method: "POST"};
+            
+            //execute fetch
+            fetch(callStringPost, otherParam)
+            .then(response=>response.json())
+            .then(data=>{
+                callStringGet = "/altUpdateA1?dbid=" + data.Data;
+                window.location.assign(callStringGet);
+                })
+            .catch(error=>console.log(error));
+        }
+
+        function filterData(){  
+            //post request
+            //let callStringPost = "/filterA1";
+            //let toSend = {};
+
+            //check that a selection has been made and that its not all
+            //if( document.getElementById("chooseLanguage").selectedIndex 
+            //    && document.getElementById("chooseLanguage").selectedIndex >0){ 
+            //    add language choice to toSend as an json {Language: selectedOption}}
+            //repeat above exercise for all elements that one can filter on
+            
+            //let toSendStr = JSON.stringify(toSend);
+
+            //set up the fetch
+            //const otherParam = {
+            //                headers: {'content-type': 'application/json; charset=utf-8'},
+            //                body: toSendStr,
+            //                method: "POST"};
+            
+            //execute fetch
+            //fetch(callStringPost, otherParam)
+            //.then(response=>response.json())
+            //.then(data=>set the local myA1 to the JSON you get back. the force page to refresh)
+            //.catch(error=>console.log(error));
+        }
+
+block append myBody
+    .filterSpace
+        <br>
+        table 
+            tr 
+                th
+                    label(for="chooseLanguage") Language
+                th
+                    label(for="chooseGrouping") Lesson Group
+                th
+                    label(for="activityGrouping") Activity Group
+                th  
+                    label(for="activityName") Activity
+                th
+                    label(for="ages") Age Groups
+                th
+                    label(for="countries") Country
+                th 
+                    label(for="regions") Region
+            tr
+                td
+                    select(id="chooseLanguage")
+                        option(value="all") All 
+                        each val, index in uniqueValues.languageSet
+                            option(value="#{val}") #{val}
+                td
+                    select(id="chooseGrouping")
+                        option(value="all") All 
+                        each val, index in uniqueValues.topLevelSet
+                            option(value="#{val}") #{val}
+                td
+                    select(id="activityGrouping") 
+                        option(value="all") All 
+                        each val, index in uniqueValues.activityGroupSet
+                            option(value="#{val}") #{val}
+                td
+                    select(id="activityName") 
+                        option(value="all") All 
+                        each val, index in uniqueValues.activityNameSet
+                            option(value="#{val}") #{val}
+                td
+                    select(id="ages")
+                        option(value="all") All 
+                        each val, index in uniqueValues.ageSet
+                            option(value="#{val}") #{val}
+                td
+                    select(id="countries") 
+                        option(value="all") All 
+                        each val, index in uniqueValues.countrySet
+                            option(value="#{val}") #{val}
+                td
+                    select(id="regions")
+                        option(value="all") All 
+                        each val, index in uniqueValues.regionSet
+                            option(value="#{val}") #{val}
+        
+        button(type="button" id="search") Search
+
+    .showChoices   
+        each val, index in myA1
+           - var AgeGroups = "Age Groups: " + val.AgeGroups;
+            - var Language =  "Language: " + val.Language;
+            - var Countries = "Countries: ";
+            - var updateLink = "/altUpdateA1?dbid=" + val._id;
+            - var visitLink = "/activity1?dbid=" + val._id;
+            each val1, index1 in val.Countries
+                - Countries = Countries + val1.Country + ", ";
+            - var ActivitySet = "View Activity Set " + index
+            - var toShow = "Language: " + Language + " For Countries " + Countries + " For Ages " + AgeGroups;   
+            table
+                tr
+                    th
+                        a(href= visitLink target = "_blank") #{ActivitySet}
+                    th
+                        a(href="#" onClick="createNew('" + val._id + "')") Create New
+                    th
+                        a(href= updateLink target = "_blank") Update This
+                tr    
+                    td(style="width 60%")
+                        p(style="margin-left: 40px") #{Language}
+                        p(style="margin-left: 40px") #{Countries}
+                        p(style="margin-left: 40px") #{AgeGroups}
+                    td
+                        img(src=val.ImageStack[0].stackImg1 width=150 height=112)

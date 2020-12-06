@@ -1,0 +1,195 @@
+extends a1layout.pug
+
+block append headBlock
+    script. 
+        let toPrint = '#{myA1.pageOfPage}';
+        let currentPage;
+        window.addEventListener('load', function(){
+            currentPage = #{myA1.currentPage};
+            currentStack = #{myA1.currentStack};
+            rStr = #{myA1.rStr};
+            loadedUp = true;
+        });
+        
+        function showSlider(newValue){
+        
+            if (newValue < 10){
+                cons = '#{myA1.SocialConsequences.c1Text}';
+            } else {
+                if (newValue < 25){
+                    cons = '#{myA1.SocialConsequences.c2Text}';
+                } else {
+                    if (newValue < 40) {
+                        cons = '#{myA1.SocialConsequences.c3Text}';
+                    } else {
+                        if (newValue < 60){
+                            cons = '#{myA1.SocialConsequences.c4Text}';
+                        } else {
+                            if (newValue < 80){
+                                cons = '#{myA1.SocialConsequences.c5Text}';
+                            } else {
+                                cons = '#{myA1.SocialConsequences.c6Text}';
+                            }
+                        }
+                    }
+                }
+            }
+            document.getElementById("myCon").innerHTML = '#{myA1.SocialConsequences.cLeadText}' + " <b>" + cons + "</b>";
+        }
+
+        function previousPage(){
+            let previousPageCall = currentPage - 1; 
+            if(#{myA1.ImageStack[myA1.currentStack].isSame} && previousPageCall == 3){
+                previousPageCall--;
+            }
+        
+            let callString = "/altUpdateA1/?page=" + previousPageCall 
+                                + "&" + "currentStack=" + currentStack
+                                + "&" + "rStr=" + rStr
+                                + "&" + "dbid=" + '#{myA1.dbid}';
+            let previousLink = document.getElementById("previous");
+            previousLink.setAttribute("href", callString);
+        }
+
+        
+        function nextPage(){
+
+            let jsonA1 = !{JSON.stringify(myA1)};
+
+            //if on page 1 of the image stack then update all the strings that can be updated there
+            if(rStr==1 && currentPage == 1){
+                let introText = document.getElementById("introText").innerHTML;
+                jsonA1.ImageStack[jsonA1.currentStack].stackIntro = introText;
+
+                let questionText = document.getElementById("q1qText").innerHTML;
+                jsonA1.Question1.questionText = questionText;
+
+                for(i=0; i<jsonA1.Question1.responseStack.length; i++){
+                    let myRadioValue = jsonA1.Question1.responseStack[i].radioValue;
+                    let myRadioText = document.getElementById(myRadioValue).innerHTML;
+                    jsonA1.Question1.responseStack[i].radioText = myRadioText;
+                    }
+                }
+
+            let nextPageCall = currentPage + 1; 
+            //if the stack does not have an manipulated image then skip showing both
+            if(#{myA1.ImageStack[myA1.currentStack].isSame} && nextPageCall == 3){
+                nextPageCall++;
+            }
+            
+            //get request
+            let callString = "/altUpdateA1/?page=" + nextPageCall 
+                            + "&" + "currentStack=" + currentStack 
+                            + "&" + "rStr=" + rStr
+                            + "&" + "dbid=" + '#{myA1.dbid}';
+            let nextLink = document.getElementById("next");
+
+            //post request
+            let callStringPost = "/altupdateA1";
+        
+            let toSend = { "data": {
+                            jsonA1: jsonA1
+                            },
+                            "admin": {
+                            page: nextPageCall,
+                            currentStack: currentStack,
+                            rStr: rStr}
+                        };
+            let toSendStr = JSON.stringify(toSend);
+
+            const otherParam = {
+                            headers: {'content-type': 'application/json; charset=utf-8'},
+                            body: toSendStr,
+                            method: "POST"};
+
+            fetch(callStringPost, otherParam)
+            .then(response=>response.json())
+            .then(data=>console.log(data))
+            .catch(error=>console.log(error));
+
+            //this should actually only happen when the fetch request is successful 
+            nextLink.setAttribute("href", callString);
+        }
+
+    style. 
+        #bgi{
+        background-image: linear-gradient(to bottom, rgba(255, 255, 255, 0.8), rgba(214, 212, 214, 0.8)),url(#{myA1.ImageStack[myA1.currentStack].stackImg1Small}), url(/images/midbreak.png), url(#{myA1.ImageStack[myA1.currentStack].stackImg2Small});
+        background-repeat: no-repeat, no-repeat, no-repeat;
+        background-position: top, center, bottom;}
+
+block append myBody
+    //set id to bgi when you need background images to show
+    if myA1.currentPage == 4 || myA1.currentPage == 5
+        - var mooID = "bgi";
+    .mainStuff(id = mooID) 
+        .uptext
+            //on page 1 show intro
+            if myA1.currentPage == 1
+                p(contentEditable=true id="introText"). 
+                    #{myA1.ImageStack[myA1.currentStack].stackIntro}
+
+            //on page 2 start with correct answer
+            //show question -- then iterate through for correct answer 
+            if myA1.currentPage == 2
+                h3. 
+                    #{myA1.Question1.questionText}
+                p. 
+                    ** 
+                    #{myA1.ImageStack[myA1.currentStack].correctAnswer}
+        // if 1, 2 or 3 show image
+        if myA1.currentPage == 1 || myA1.currentPage == 2 || myA1.currentPage == 3
+            .showImage
+                - var imgsrc = myA1.ImageStack[myA1.currentStack].stackImg1;
+                img(id="mainImages" src= imgsrc , alt="alt")
+                <input id="image-file" type="file" />
+        //if page 3 show both real and manipualted image 
+        if myA1.currentPage == 3
+            .showImage
+                -var imgsrc2 = myA1.ImageStack[myA1.currentStack].stackImg2;
+                img(id="mainImages" src= imgsrc2 , alt="alt")
+        // page 1 shows questions
+        // page 2 show explainer text
+        .lowtext
+            if myA1.currentPage == 1
+                p(contentEditable=true id="q1qText"). 
+                    <br> <br>
+                    !{myA1.Question1.questionText}
+                each val, index in myA1.Question1.responseStack
+                    - var myRadioName = myA1.Question1.responseStack[index].radioName;
+                    - var myRadioValue =  myA1.Question1.responseStack[index].radioValue;
+                    - var myRadioText = myA1.Question1.responseStack[index].radioText;
+                    p(contentEditable = true id=myRadioValue) #{myRadioText}
+            if myA1.currentPage == 2
+                p.
+                    !{myA1.ImageStack[myA1.currentStack].stackExplain}
+        // page 4 do the write over
+        if myA1.currentPage == 4
+            .writeOver
+                h2  #{myA1.SocialConsequences.reflectHeader} 
+                h4  #{myA1.SocialConsequences.reflectQuestion1}
+                <br><br><br><br><br><br>
+                h4  #{myA1.SocialConsequences.reflectQuestion2}
+                .slidecontainer
+                    input(type="range" min="1" max="100" value="50" class="slider" id="conRange" oninput="showSlider(this.value)" onchange="showSlider(this.value)")
+                    p(style="text-align:left; margin:0px 0px 16px") #{myA1.SocialConsequences.mild} <span style="float:right;"> #{myA1.SocialConsequences.severe}
+                    <br>
+                    p(id="myCon")
+                    <br><br><br><br><br>
+        if myA1.currentPage == 5
+            .writeOver
+                h3. 
+                    #{myA1.Question2.questionText}
+                form(action="" method="")
+                    each val, index in myA1.Question2.responseStack
+                        - var myRadioName = myA1.Question2.responseStack[index].radioName;
+                        - var myRadioValue =  myA1.Question2.responseStack[index].radioValue;
+                        - var myRadioText = myA1.Question2.responseStack[index].radioText;
+                        input(type='radio', name= myRadioName, id= myRadioValue, value= myRadioValue)
+                        label(for=myRadioValue) #{myRadioText}
+                        <br>
+    
+    .bottomPart
+        p(style="text-align: center")   #{myA1.pageOfPage}
+        a(class='NextButton myButton' id="next" onclick="nextPage()") Next &raquo;
+        if myA1.currentPage > 1 || myA1.currentStack > 0
+            a(class="PreviousButton myButton" id="previous" onclick="previousPage()") &laquo; Previous;

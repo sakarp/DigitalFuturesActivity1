@@ -2,6 +2,68 @@ extends layout.pug
 
 block append headBlock
     link(rel="stylesheet", href="/a1updatestyle.css")
+    script. 
+        function addImageStack(){
+            let addButton = document.getElementById("addImageStack");
+            let myparentNode = document.getElementById("addImageStack").parentNode;
+            let stackCountNode = document.getElementById("iStackCount");
+            let stackCount = Number(stackCountNode.innerHTML);
+            stackCount++;
+            stackCountNode.innerHTML = stackCount.toString();
+            
+            newButton = document.createElement('button');
+            newButton.className = "collapsible";
+            newButton.type ="button";
+            newButton.innerHTML = "Image Stack " + stackCount;
+            newButton.addEventListener("click", function() {
+                this.classList.toggle("active");
+                var content = this.nextElementSibling;
+                if (content.style.display === "block") {
+                    content.style.display = "none";
+                } else {
+                        content.style.display = "block";
+                }
+            });
+
+            newDiv = document.createElement('div');
+            newDiv.className = "content";
+            newDiv.id = "iStack" + stackCount;
+
+            newText = document.createElement("p");
+            newNode = document.createTextNode("This is a text node");
+            newText.appendChild(newNode);
+            newDiv.appendChild(newText);
+
+            myparentNode.insertBefore(newButton, addButton);
+            myparentNode.insertBefore(newDiv, addButton);
+            //add another button(type="button" class="collapsible") Image Stack #{stackNum} 
+            //div(id=divID class="content")
+        }
+
+        function updateCurrent(){
+
+            let numOfStacks = Number(document.getElementById("iStackCount").innerHTML);
+            console.log(numOfStacks);
+            i=0;
+            for(i=0; i<numOfStacks; i++){
+                let stackNum = i + 1;
+                let divID = "iStack" + stackNum;
+                let introID = divID + "Intro";
+                let img1ID = divID + "Img1";
+                let img2ID = divID + "Img2";
+                let expID = divID + "Exp";
+                let sameID = divID + "Same";
+                let caID = divID + "CA";
+                if(document.getElementById(introID).value){
+                    
+                }
+            }
+        }
+        
+
+        function saveAsNew(){
+            console.log("save as new");
+        }
 
 block append myBody
     .topPart
@@ -28,20 +90,68 @@ block append myBody
         button(type="button" class="collapsible") Image Stack
         div(id="iStackDiv" class="content")
             h2  Image Stack
-            p   This activity has #{myA1.ImageStack.length} image stacks
-            each val, index in myA1.ImageStack
-                - var stackNum = index + 1;
-                - var divID = "iStack" + stackNum;
-                button(type="button" class="collapsible") Image Stack #{stackNum} 
-                div(id=divID class="content")
-                    p.   
-                        Stack Intro: #{myA1.ImageStack[index].stackIntro} <br>
-                        Image One: #{myA1.ImageStack[index].stackImg1} <br>
-                        Image Two: #{myA1.ImageStack[index].stackImg2}  <br>
-                        Explanation: !{myA1.ImageStack[index].stackExplain} <br>
-                        Is Same: #{myA1.ImageStack[index].isSame} <br>
-                        Correct Answer: #{myA1.ImageStack[index].correctAnswer} <br> 
-            p   add new image stack
+            p(id="countText")   This activity has <span id="iStackCount"> #{myA1.ImageStack.length} </span> image stacks
+            div(class="column1")
+                //create the set up for each item in the image stack
+                each val, index in myA1.ImageStack
+                    - var stackNum = index + 1;
+                    - var divID = "iStack" + stackNum;
+                    - var introID = divID + "Intro";
+                    - var img1ID = divID + "Img1";
+                    - var img2ID = divID + "Img2";
+                    - var expID = divID + "Exp";
+                    - var sameID = divID + "Same";
+                    - var caID = divID + "CA";
+                    - var correctAnswer = myA1.ImageStack[index].correctAnswer;
+                    //create a collapsible for each stack
+                    button(type="button" class="collapsible") Image Stack #{stackNum} 
+                    div(id=divID class="content")
+                        p.  
+                            <label for=#{introID}>Change the Stack Intro from: <b> #{myA1.ImageStack[index].stackIntro} </b> <br> TO <br> </label>
+                            <input type="text" id=#{introID} name=#{introID}><br><br> 
+                        div(class="halfcolumn")
+                            h3  Image One: Manipulated
+                            - var imageLink = myA1.ImageStack[index].stackImg1;
+                            img(src=imageLink, alt="The manipulated image", width="300", height="225") 
+                            <br>
+                            button(type="button") Upload New Image
+                        div(class="halfcolumn")
+                            h3  Image Two: Unmanipulated
+                            - var imageLink = myA1.ImageStack[index].stackImg2;
+                            img(src=imageLink, alt="Unmanipulated image", width="300", height="225")  
+                            <br>
+                            button(type="button") Upload New Image
+                        p. 
+                            <label for=#{expID}> Change the Explanation from: <br> <b> !{myA1.ImageStack[index].stackExplain} </b> <br> TO <br> </label>
+                            <input type="text" id=#{expID} name=#{expID}><br><br> 
+                            
+                            <b> Are the two images the same? <br> </b>
+                            NOTE: Setting this value to true will skip the display both images screen <br> 
+                            <label class="switch" for=#{sameID}>
+                            <input type="checkbox" id=#{sameID} name=#{sameID}>
+                            <span class="slider"></span>
+                            </label>
+                            <br>
+                            <br>
+                            <label for=caID> Change Correct Answer:&nbsp;&nbsp;</label>
+                        select(id=caID name =caID)
+                            each val, index in myA1.Question1.responseStack
+                                - var myAnswer = myA1.Question1.responseStack[index].radioText;
+                                - var myValue = myA1.Question1.responseStack[index].radioValue;
+                                if myAnswer == correctAnswer
+                                    option(value=myValue selected="selected") #{myAnswer}
+                                else  
+                                    option(value=myValue) #{myAnswer}
+                            </select>
+                            <br> 
+                            <br>
+                        script. 
+                            //script to set the isSame value
+                            document.getElementById('#{sameID}').checked= #{myA1.ImageStack[index].isSame};
+                button(type="button" onClick="addImageStack();" id="addImageStack" style="padding: 10px")   Add Image Stack
+            div(class="column2")
+                img(src='/images/lessonupdate/ImageStack.png', alt="image of what the photos look like in the app", width='90%')
+            <br>
         button(type="button" class="collapsible") Question One 
         div(id="qOne" class="content")
             div(class="column1")
@@ -104,24 +214,47 @@ block append myBody
                 img(src='/images/lessonupdate/SocialConsequences.png', alt="image of the social consequences screen", width='90%')
         button(type="button" class="collapsible") Question Two 
         div(id="qTwo" class="content")
-            h2  Question Two
-            p   Question Text: #{myA1.Question2.questionText}
-            ul
-            each val, index in myA1.Question2.responseStack
-                li= myA1.Question2.responseStack[index].radioText
-                li= myA1.Question2.responseStack[index].radioValue
-                li= myA1.Question2.responseStack[index].radioName
-                li= myA1.Question2.responseStack[index].link
+            div(class="column1")
+                h2 Question Two 
+                <label for="q2QT"> Change question 2 from <b> #{myA1.Question2.questionText} </b> TO <br> </label>
+                <input type="text" id="q2QT" name="q2QT"> <br> <br>
+                p   Change the user responses and links below:
+                each val, index in myA1.Question2.responseStack
+                    - var myAnswer = myA1.Question2.responseStack[index].radioText;
+                    - var myLink = myA1.Question2.responseStack[index].link;
+                    - var labelName = "q2RS" + index;
+                    - var linkName = "q2Lnk" + index;
+                    label(for=labelName) from <b> #{myAnswer} </b> TO 
+                    input(type=text id=labelName name=labelName)
+                    <br>
+                    label(for=linkName) from <b> #{myLink} </b> TO 
+                    input(type=text id=linkName name=linkName)
+                    <br><br>
+            div(class="column2")
+                img(src='/images/lessonupdate/Question2.png', alt="image of how question 2 is used in the actual lesson", width='90%')
         button(type="button" class="collapsible") Motivation 
-        div(id="motivation" class="content")
-            h2  Motivations For Disinformation
-            p.   
-                #{myA1.Reasons.reasonsIntro}
-                #{myA1.Reasons.reasonsText}
-            ul
-            each val, index in myA1.Reasons.reasonsStack
-                li= myA1.Reasons.reasonsStack[index].text
-                li= myA1.Reasons.reasonsStack[index].link
+        div(id="motivations" class="content")
+            div(class="column1")
+                h2  Motivations For Disinformation
+                <label for="motiveIntro"> Change introduction from <b> #{myA1.Reasons.reasonsIntro} </b> TO <br> </label>
+                <input type="text" id="motiveIntro" name="motiveIntro"> <br> <br>
+                <label for="motiveExplain"> Change introduction from <b> #{myA1.Reasons.reasonsText} </b> TO <br> </label>
+                <input type="text" id="motiveExplain" name="motiveExplain"> <br> <br>   
+                each val, index in myA1.Reasons.reasonsStack
+                    - var myAnswer = myA1.Reasons.reasonsStack[index].text;
+                    - var myLink = myA1.Reasons.reasonsStack[index].link;
+                    - var labelName = "motiveRS" + index;
+                    - var linkName = "motiveLnk" + index;
+                    label(for=labelName) from <b> #{myAnswer} </b> TO 
+                    input(type=text id=labelName name=labelName)
+                    <br>
+                    label(for=linkName) from <b> #{myLink} </b> TO 
+                    input(type=text id=linkName name=linkName)
+                    <br><br>
+            div(class="column2")
+                img(src='/images/lessonupdate/Question2.png', alt="image of how question 2 is used in the actual lesson", width='90%')
+        button(type="button" id="updateCurrent" style="padding: 10px" onClick="updateCurrent()") Update Current Lesson
+        button(type="button" id="saveAsNew" style="padding: 10px" onClick="saveAsNew()") Save As New 
     script. 
         var coll = document.getElementsByClassName("collapsible");
         var i;

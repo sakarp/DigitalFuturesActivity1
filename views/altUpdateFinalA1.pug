@@ -1,0 +1,58 @@
+extends a1layout.pug
+
+block append headBlock
+    script. 
+        let currentPage;
+        window.addEventListener('load', function () {
+            currentPage = #{myA1.currentPage};
+            currentStack = #{myA1.currentStack};
+            rStr = #{myA1.rStr};
+            loadedUp = true;
+        });
+
+        function nextPage(){
+            //if currentPage is 1
+            //include code below to check if atleast one radio item is selected
+            //var checkRadio = document.querySelector('input[name="theIssue"]:checked');
+
+            //if currentPage is 2
+
+            let nextPageCall = currentPage + 1; 
+            let callString = "/altUpdateA1/?page=" + nextPageCall 
+                            + "&" + "currentStack=" + currentStack 
+                            + "&" + "rStr=" + rStr;
+            let nextLink = document.getElementById("next");
+            nextLink.setAttribute("href", callString);
+        }
+
+        function previousPage(){
+            //if currentPage is 1
+            //include code below to check if atleast one radio item is selected
+            //var checkRadio = document.querySelector('input[name="theIssue"]:checked');
+
+            //if currentPage is 2
+
+            let previousPageCall = currentPage - 1; 
+            let callString = "/altUpdateA1/?page=" + previousPageCall 
+                                + "&" + "currentStack=" + currentStack
+                                + "&" + "rStr=" + rStr;
+            let previousLink = document.getElementById("previous");
+            previousLink.setAttribute("href", callString);
+        }
+
+
+block append myBody
+    .mainstuff(style="margin: 10px")
+        .uptext
+            if myA1.currentPage == 1
+                h3(contentEditable=true)  #{myA1.Reasons.reasonsIntro} 
+                p  #{myA1.Reasons.reasonsText}
+                ul
+                    each val, index in myA1.Reasons.reasonsStack
+                        li=  myA1.Reasons.reasonsStack[index].text
+            if myA1.currentPage == 2
+                h1 It's happening 2!
+    .bottomPart
+        a(class='NextButton myButton' id="next" onclick="nextPage()") Next &raquo;
+
+        a(class="PreviousButton myButton" id="previous" onclick="previousPage()") &laquo; Previous;
