@@ -1,6 +1,16 @@
-extends a1layout.pug
+extends layout.pug
 
 block append headBlock
+    style. 
+      .topPart {
+        padding: 5px;
+        height: 80px;
+        font-size: large;
+        font-weight: bold;
+        background: black;
+        color: #ffffff;
+        vertical-align: middle;
+        }
     script. 
         function createNew(x){
 
@@ -54,6 +64,8 @@ block append headBlock
         }
 
 block append myBody
+    .topPart
+        h2 Digital Futures <br> Initiative   
     .filterSpace
         <br>
         table 
