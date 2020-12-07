@@ -111,9 +111,28 @@ block append headBlock
             nextLink.setAttribute("href", callString);
         }
 
-        function showImage(){
-            let newImage = document.getElementById("image-file");
-            console.log(newImage);
+        function newImage(event){
+            //get the image we want to update
+            var image = document.getElementById('mainImages');
+
+            //do stuff to check if the file is of the dimensions we want
+            var tempImage;
+            var width, height;
+            var tempImage = document.createElement("img");
+            tempImage.onload = function() {
+                width  = tempImage.naturalWidth  || tempImage.width;
+                height = tempImage.naturalHeight || tempImage.height; 
+
+                if(width == 600 && height == 450){
+                    image.src = URL.createObjectURL(event.target.files[0]);
+                }
+                else{
+                    alert("The image needs to be 600 pixes wide and 450 pixes in height. Selected image has width/height " + width + "/" + height);
+                }
+            }
+                
+            // Setting the source to make it call `onload`
+            tempImage.src = URL.createObjectURL(event.target.files[0]);
         }
 
     style. 
@@ -146,7 +165,8 @@ block append myBody
             .showImage
                 - var imgsrc = myA1.ImageStack[myA1.currentStack].stackImg1;
                 img(id="mainImages" src= imgsrc , alt="alt")
-                <input id="image-file" type="file" onClick="showImage()" />
+                <input id="file1" type="file" accept="image/gif, image/jpeg, image/png" onchange="newImage(event)" style= "display: none" />
+                <label for="file1" style="cursor: pointer;">Upload New Image</label>
         //if page 3 show both real and manipualted image 
         if myA1.currentPage == 3
             .showImage
