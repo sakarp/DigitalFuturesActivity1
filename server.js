@@ -8,6 +8,7 @@ var baseA1 = require("./mainA11.json");
 mongoose.connect("mongodb://localhost:27017/myTest", {
   useNewUrlParser: true,
   useUnifiedTopology: true,
+  useFindAndModify: false,
 });
 const db = mongoose.connection;
 
@@ -129,14 +130,14 @@ app.get("/", (req, res) => {
   res.send("Welcome to the Digital Futures Initiative");
 });
 
-app.get("/baseA1", (req, res)=>{
-  A1Model.create(baseA1, function(err, docs){
-    if(err){ 
+app.get("/baseA1", (req, res) => {
+  A1Model.create(baseA1, function (err, docs) {
+    if (err) {
       console.log("DB Error ") + err;
       res.send("failed at inserting baseA1");
-    }
-    else{
+    } else {
       console.log("success");
+
       res.send("successfully inserted baseA1");
     }
   });
