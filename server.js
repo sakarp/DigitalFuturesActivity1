@@ -7,6 +7,11 @@ var baseA1 = require("./mainA11.json");
 
 var connectString = "mongodb://localhost:27017/myTest";
 
+//if on heroku set to the config var
+if(process.env.MONGODB_URI){
+    var connectString = process.env.MONGODB_URI; 
+}
+
 mongoose.connect(connectString, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
