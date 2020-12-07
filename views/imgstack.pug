@@ -26,7 +26,8 @@ block append headBlock
             }
             let callString = "/activity1/?page=" + nextPageCall 
                             + "&" + "currentStack=" + currentStack 
-                            + "&" + "rStr=" + rStr;
+                            + "&" + "rStr=" + rStr
+                            + "&" + "dbid=" + '#{a1.dbid}';;
             let nextLink = document.getElementById("next");
             nextLink.setAttribute("href", callString);
         }
@@ -38,7 +39,8 @@ block append headBlock
             }
             let callString = "/activity1/?page=" + previousPageCall 
                                 + "&" + "currentStack=" + currentStack
-                                + "&" + "rStr=" + rStr;
+                                + "&" + "rStr=" + rStr
+                                + "&" + "dbid=" + '#{a1.dbid}';;
             let previousLink = document.getElementById("previous");
             previousLink.setAttribute("href", callString);
         }

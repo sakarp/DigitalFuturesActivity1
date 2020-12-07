@@ -5,7 +5,9 @@ const mongoose = require("mongoose");
 
 var baseA1 = require("./mainA11.json");
 
-mongoose.connect("mongodb://localhost:27017/myTest", {
+var connectString = "mongodb://localhost:27017/myTest";
+
+mongoose.connect(connectString, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
   useFindAndModify: false,
@@ -233,7 +235,6 @@ app.get("/altUpdateA1", (req, res) => {
     //if page is undefined. it means its the first call
     //so set currentPage and currentStack
     if (!page) {
-      myA1.dbID = myID;
       myA1.currentPage = 1;
       myA1.currentStack = 0;
       myA1.renderString = "altUpdate.pug";
@@ -337,103 +338,111 @@ app.get("/activity1", (req, res) => {
   let page = req.query.page;
   let currentStack = req.query.currentStack;
   let rStr = req.query.rStr;
-  let totalPages = a1.ImageStack.length * 5 + 2;
+  let a1;
+  var ObjectId = require("mongodb").ObjectId;
+  let myID = req.query.dbid;
+  A1Model.findOne({ _id: new ObjectId(myID) }, function (err, docs) {
+    a1 = JSON.parse(JSON.stringify(docs));
+    let totalPages = a1.ImageStack.length * 5 + 2;
+    a1.dbid = myID;
 
-  //if page is undefined. it means its the first call
-  //so set currentPage and currentStack
-  if (!page) {
-    a1.currentPage = 1;
-    a1.currentStack = 0;
-    a1.renderString = "imgstack.pug";
-    a1.rStr = 1;
-    a1.pageOfPage = "Page 1 of " + totalPages;
-    res.render(a1.renderString, { a1 });
-    return;
-  }
-
-  //check if we are working with the imgstack files
-  if (rStr == 1) {
-    if (page == 6) {
-      //check if its gone to page 6, which means its time to switch image stack
-      //then increase the image stack we are working with
-      //also reset page count to 1
-      currentStack++;
-      page = 1;
-      a1.currentPage = page;
-      a1.currentStack = currentStack;
+    //if page is undefined. it means its the first call
+    //so set currentPage and currentStack
+    if (!page) {
+      a1.currentPage = 1;
+      a1.currentStack = 0;
       a1.renderString = "imgstack.pug";
-      a1.rStr = rStr;
-      //my page count is the current page + 5 pages for each of the previous image stacks
-      let mypageCount =
-        parseInt(a1.currentPage) + parseInt(a1.currentStack * 5);
-      a1.pageOfPage = "Page " + mypageCount + " of " + totalPages;
+      a1.rStr = 1;
+      a1.pageOfPage = "Page 1 of " + totalPages;
+      res.render(a1.renderString, { a1 });
+      return;
+    }
 
-      //if we are at the end of all image stacks
-      //change the page we use to show stuff
-      if (
-        currentStack == a1.ImageStack.length ||
-        currentStack > a1.ImageStack.length
-      ) {
+    //check if we are working with the imgstack files
+    if (rStr == 1) {
+      if (page == 6) {
+        //check if its gone to page 6, which means its time to switch image stack
+        //then increase the image stack we are working with
+        //also reset page count to 1
+        currentStack++;
+        page = 1;
+        a1.currentPage = page;
+        a1.currentStack = currentStack;
+        a1.renderString = "imgstack.pug";
+        a1.rStr = rStr;
+        //my page count is the current page + 5 pages for each of the previous image stacks
+        let mypageCount =
+          parseInt(a1.currentPage) + parseInt(a1.currentStack * 5);
+        a1.pageOfPage = "Page " + mypageCount + " of " + totalPages;
+
+        //if we are at the end of all image stacks
+        //change the page we use to show stuff
+        if (
+          currentStack == a1.ImageStack.length ||
+          currentStack > a1.ImageStack.length
+        ) {
+          a1.renderString = "finalA1.pug";
+          a1.rStr = 2;
+          a1.currentStack = currentStack - 1;
+          a1.currentPage = 1;
+          //page count is all the image stacks plus current page
+          mypageCount =
+            parseInt(a1.currentPage) + parseInt(a1.ImageStack.length * 5);
+          a1.pageOfPage = "Page " + mypageCount + " of " + totalPages;
+        }
+      } else {
+        //if we have not gotten to six
+        //check if we are at 0
+        if (page == 0) {
+          //reduce current stack
+          currentStack--;
+          page = 5;
+          mypageCount =
+            parseInt(a1.currentPage) + parseInt(a1.currentStack * 5);
+          a1.pageOfPage = "Page " + mypageCount + " of " + totalPages;
+          if (currentStack < 0) {
+            console.log("crazy error");
+            //send 404 file missing message
+          }
+        }
+        a1.currentPage = page;
+        a1.currentStack = currentStack;
+        a1.renderString = "imgstack.pug";
+        a1.rStr = rStr;
+        //page count is all the image stacks plus current page
+        mypageCount = parseInt(a1.currentPage) + parseInt(a1.currentStack * 5);
+        a1.pageOfPage = "Page " + mypageCount + " of " + totalPages;
+      }
+    }
+
+    //check if we are working with the finala1.pug template
+    if (rStr == 2) {
+      // check if page is 0. this means user is trying to come back to stack
+      if (page == 0) {
+        rStr = 1; //switch the file back
+        page = 5; //switch the page to the last
+        currentStack = a1.ImageStack.length - 1; //set stack to image on stack
+        a1.currentPage = page;
+        a1.currentStack = currentStack;
+        a1.renderString = "imgstack.pug";
+        a1.rStr = 1;
+        //page count is all the image stacks, excluding the current plus current page
+        mypageCount = parseInt(a1.currentPage) + parseInt(a1.currentStack * 5);
+        a1.pageOfPage = "Page " + mypageCount + " of " + totalPages;
+      } else {
+        a1.currentPage = page;
+        a1.currentStack = currentStack;
         a1.renderString = "finalA1.pug";
         a1.rStr = 2;
-        a1.currentStack = currentStack - 1;
-        a1.currentPage = 1;
         //page count is all the image stacks plus current page
         mypageCount =
           parseInt(a1.currentPage) + parseInt(a1.ImageStack.length * 5);
         a1.pageOfPage = "Page " + mypageCount + " of " + totalPages;
       }
-    } else {
-      //if we have not gotten to six
-      //check if we are at 0
-      if (page == 0) {
-        //reduce current stack
-        currentStack--;
-        page = 5;
-        mypageCount = parseInt(a1.currentPage) + parseInt(a1.currentStack * 5);
-        a1.pageOfPage = "Page " + mypageCount + " of " + totalPages;
-        if (currentStack < 0) {
-          console.log("crazy error");
-          //send 404 file missing message
-        }
-      }
-      a1.currentPage = page;
-      a1.currentStack = currentStack;
-      a1.renderString = "imgstack.pug";
-      a1.rStr = rStr;
-      //page count is all the image stacks plus current page
-      mypageCount = parseInt(a1.currentPage) + parseInt(a1.currentStack * 5);
-      a1.pageOfPage = "Page " + mypageCount + " of " + totalPages;
     }
-  }
 
-  //check if we are working with the finala1.pug template
-  if (rStr == 2) {
-    // check if page is 0. this means user is trying to come back to stack
-    if (page == 0) {
-      rStr = 1; //switch the file back
-      page = 5; //switch the page to the last
-      currentStack = a1.ImageStack.length - 1; //set stack to image on stack
-      a1.currentPage = page;
-      a1.currentStack = currentStack;
-      a1.renderString = "imgstack.pug";
-      a1.rStr = 1;
-      //page count is all the image stacks, excluding the current plus current page
-      mypageCount = parseInt(a1.currentPage) + parseInt(a1.currentStack * 5);
-      a1.pageOfPage = "Page " + mypageCount + " of " + totalPages;
-    } else {
-      a1.currentPage = page;
-      a1.currentStack = currentStack;
-      a1.renderString = "finalA1.pug";
-      a1.rStr = 2;
-      //page count is all the image stacks plus current page
-      mypageCount =
-        parseInt(a1.currentPage) + parseInt(a1.ImageStack.length * 5);
-      a1.pageOfPage = "Page " + mypageCount + " of " + totalPages;
-    }
-  }
-
-  res.render(a1.renderString, { a1 });
+    res.render(a1.renderString, { a1 });
+  });
 });
 
 //must be the last item
