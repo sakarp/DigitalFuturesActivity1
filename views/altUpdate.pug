@@ -111,6 +111,11 @@ block append headBlock
             nextLink.setAttribute("href", callString);
         }
 
+        function showImage(){
+            let newImage = document.getElementById("image-file");
+            console.log(newImage);
+        }
+
     style. 
         #bgi{
         background-image: linear-gradient(to bottom, rgba(255, 255, 255, 0.8), rgba(214, 212, 214, 0.8)),url(#{myA1.ImageStack[myA1.currentStack].stackImg1Small}), url(/images/midbreak.png), url(#{myA1.ImageStack[myA1.currentStack].stackImg2Small});
@@ -141,7 +146,7 @@ block append myBody
             .showImage
                 - var imgsrc = myA1.ImageStack[myA1.currentStack].stackImg1;
                 img(id="mainImages" src= imgsrc , alt="alt")
-                <input id="image-file" type="file" />
+                <input id="image-file" type="file" onClick="showImage()" />
         //if page 3 show both real and manipualted image 
         if myA1.currentPage == 3
             .showImage
