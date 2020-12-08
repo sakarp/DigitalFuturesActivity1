@@ -206,6 +206,12 @@ app.get("/chooseA1", (req, res) => {
   });
 });
 
+app.post("/newImageA1", function(req, res){
+  console.log(req.body);
+  console.log({Message: "All Good"});
+  res.json({Message: "All Good"});
+});
+
 app.post("/createNewUpdateA1", function (req, res) {
   let myA1 = req.body[0];
   //create a new entry with the same data

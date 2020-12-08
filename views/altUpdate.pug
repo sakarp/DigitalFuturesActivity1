@@ -2,6 +2,8 @@ extends a1layout.pug
 
 block append headBlock
     script. 
+        let changedImage = false;
+
         let toPrint = '#{myA1.pageOfPage}';
         let currentPage;
         window.addEventListener('load', function(){
@@ -52,7 +54,7 @@ block append headBlock
         }
 
         
-        function nextPage(){
+        async function nextPage(){
 
             let jsonA1 = !{JSON.stringify(myA1)};
 
@@ -68,8 +70,28 @@ block append headBlock
                     let myRadioValue = jsonA1.Question1.responseStack[i].radioValue;
                     let myRadioText = document.getElementById(myRadioValue).innerHTML;
                     jsonA1.Question1.responseStack[i].radioText = myRadioText;
-                    }
                 }
+
+                if(changedImage){
+                    let toSendImage = await fetch(document.getElementById("mainImages").src)
+                                        .then(r => r.blob())
+                                        .then(data => data);
+                    console.log(toSendImage);
+                    let fd = new FormData();
+                    fd.append('imageManipulated', toSendImage, '#{myA1.dbid}' + 'img1');
+                    console.log(fd);
+
+                    const otherParam = {
+                            headers: {'accept': 'application/json'},
+                            body: fd,
+                            method: "POST"};
+                    console.log(otherParam);
+                    fetch("/newImageA1", otherParam)
+                        .then(response=>response.json())
+                        .then(data=>console.log(data))
+                        .catch(error=>console.log(error));
+                }
+            }
 
             let nextPageCall = currentPage + 1; 
             //if the stack does not have an manipulated image then skip showing both
@@ -108,7 +130,7 @@ block append headBlock
             .catch(error=>console.log(error));
 
             //this should actually only happen when the fetch request is successful 
-            nextLink.setAttribute("href", callString);
+           //nextLink.setAttribute("href", callString);
         }
 
         function newImage(event){
@@ -125,6 +147,7 @@ block append headBlock
 
                 if(width == 600 && height == 450){
                     image.src = URL.createObjectURL(event.target.files[0]);
+                    changedImage = true;
                 }
                 else{
                     alert("The image needs to be 600 pixes wide and 450 pixes in height. Selected image has width/height " + width + "/" + height);
