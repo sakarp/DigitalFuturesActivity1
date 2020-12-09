@@ -6,12 +6,8 @@
 	"Language": "English",
 	"AgeGroups": ["15-18", "19-24", "24+"],
 	"Countries": [{
-			"Country": "Nepal",
-			"Region": "South Asia"
-		},
-		{
-			"Country": "India",
-			"Region": "South Asia"
+			"Country": "United States",
+			"Region": "North America"
 		}
 	],
 	"ImageStack": [{
@@ -35,7 +31,7 @@
 		"correctAnswer":  "Photo is manipulated"
 	},
 	{
-		"stackIntro": "During the last Indian elections, it appeared that these famous Bollywood stars were campaigning for one of the major political parties. But people were suspicious.  ",
+		"stackIntro": "This photo appeared on Fox News, and was quickly used by conservative commentators to decry the lawlessness of the Capitol Hill protests in Seattle.",
 		"stackImg1":  "/images/riotManipulate.png",
 		"stackImg1Small":  "/images/riotManipulateSmall.png",
 		"stackImg2":  "/images/riotReal.png",
