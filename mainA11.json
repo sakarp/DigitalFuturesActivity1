@@ -3,7 +3,7 @@
 	"SubGrouping": "DRUMS Literacy",
 	"ActivityGrouping": "Is Seeing Believing?",
 	"ActivityName": "Consequences and Motivations for Image Manipulation",
-	"Language": "English",
+	"Language": "Nepali/नेपाली",
 	"AgeGroups": ["15-18", "19-24", "24+"],
 	"Countries": [{
 			"Country": "Nepal",
@@ -15,27 +15,27 @@
 		}
 	],
 	"ImageStack": [{
-		"stackIntro": "This beautiful photo was used on the London Metro to promote the Visit Nepal 2020 campaign. But it ran into a lot of controversy.",
+		"stackIntro": "यो सुन्दर फोटो भिजिट नेपाल २०२० अभियानको लागि लनडन मेट्रोमा टासिएको थियो । तर यो फोटि धेरै विवाधमा फस्यो।",
 		"stackImg1": "/images/thaiBuddha.png",
 		"stackImg1Small": "/images/thaiBuddhaSmall.png",
 		"stackImg2": "/images/thaiBuddha.png",
 		"stackImg2Small": "/images/thaiBuddhaSmall.png",
-		"stackExplain": "<a href='https: //kathmandupost.com/national/2019/07/08/in-embarrassing-gaffe-tourism-campaign-for-nepal-promotes-a-picture-from-thailand-in-london' target='_blank'> The Kathmandu Post </a> reports that Visit Nepal campaign used a photo of Thailand instead of Nepal for their promotion. This image was chosen from Shutterstock, a stock photo service, and was not properly verified by the designers nor the authorities.",
+		"stackExplain": "<a href='https: //kathmandupost.com/national/2019/07/08/in-embarrassing-gaffe-tourism-campaign-for-nepal-promotes-a-picture-from-thailand-in-london' target='_blank'> काठमांडू पोश्ट पत्रिकाको </a>अनुसार भिजिट नेपाल २०२० अभियानले नेपालको नभएर थाइलान्डको फोटो प्रयोग गर्यो । डिजाइनर र सरदार दुबैले ध्यान नदिएर यो फोटो शटरसटक शटक फोटो वोबसाइट वाट उठाइयो ।",
 		"isSame": true,
 		"correctAnswer": "Photo is of the wrong place/event"
 	},
 	{
-		"stackIntro": "This photo was doing the rounds of the internet have a gathering of world leaders. While many people laughed at it they did not believe it :-) ",
+		"stackIntro": "यो संसारका निताहरुको सम्मेलन चित्रित गरेको फोटो इनटरनेटमा घुमिरहेको थियो । दरसकहरु हासिरहेका थिए तर यो सम्मेलन साचै भएको हो भनेर बिस्वास गरेनन ।",
 		"stackImg1":  "/images/trumpHeadManipulated.png",
 		"stackImg1Small":  "/images/trumpHeadManipulatedSmall.png",
 		"stackImg2":  "/images/trumpHeadReal.png",
 		"stackImg2Small":  "/images/trumpHeadRealSmall.png",
-		"stackExplain": "Changing images is very simple and easy with digital tools. This ability can be used to create a funny joke like this or something scarier.",
+		"stackExplain": "डिजिटल यनत्र प्रयोग गरेर फोटो बदलिन सारै सजिलो छ । फोटोहरु बदलियर यस्तै रमाइलो जोक बनाउन सकिनछ तर अरु डरलाग्दो कार्य पनि गर्न सकिन्छ ।",
 		"isSame":  false,
 		"correctAnswer":  "Photo is manipulated"
 	},
 	{
-		"stackIntro": "During the last Indian elections, it appeared that these famous Bollywood stars were campaigning for one of the major political parties. But people were suspicious.  ",
+		"stackIntro": "पछ्छिलो भारतिय चुनावमा यि परिचित बलिवुडका कलाकारहरु एक मुख्य राजनितिक दालको प्रचारमा लागेका जस्तो देखियो । तर भारतिय जनता संखासपद थिये ।",
 		"stackImg1":  "/images/ranvirManipulated.png",
 		"stackImg1Small":  "/images/ranvirManipulatedSmall.png",
 		"stackImg2":  "/images/ranvirReal.png",
@@ -46,27 +46,27 @@
 	}
 ],
 	"Question1": {
-		"questionText": "Can you guess why?",
+		"questionText": "तपै किन भन्न सक्नु हुन्छ?",
 		"responseStack": [{
-				"radioText": "Photo is manipulated",
+				"radioText": "तोढमोढ गरिएको फोटो",
 				"radioValue": "manipulated",
 				"radioName": "theIssue",
 				"link": ""
 			},
 			{
-				"radioText": "Photo is used without permission",
+				"radioText": "तोढमोढ गरिएको फोटो",
 				"radioValue": "permission",
 				"radioName": "theIssue",
 				"link": ""
 			},
 			{
-				"radioText": "Photo is of the wrong place/event",
+				"radioText": "फोटोले गल्त ढाऊ/कार्यक्रम चित्रित गर्छ ।",
 				"radioValue": "wrong",
 				"radioName": "theIssue",
 				"link": ""
 			},
 			{
-				"radioText": "The issue is something else",
+				"radioText": "बिस्य अरु केहि हो ।",
 				"radioValue": "other",
 				"radioName": "theIssue",
 				"link": ""
@@ -74,53 +74,53 @@
 		]
 	},
 	"SocialConsequences": {
-		"reflectHeader": "REFLECT",
-		"reflectQuestion1": "What are the social consequences of this image?",
-		"reflectQuestion2": "How serious are the social consequences?",
-		"mild": "mild",
-		"severe": "severe",
-		"c1Text": "no consequences",
-		"c2Text": "mild consequcnes",
-		"c3Text": "some consequences",
-		"c4Text": "important consequences",
-		"c5Text": "strong consequences",
-		"c6Text": "severe consequences",
-		"cLeadText": "You believe that there are"
+		"reflectHeader": "सोचनुश।",
+		"reflectQuestion1": "यो फोटोको सामाजिक परिनामहरु के हो?",
+		"reflectQuestion2": "सामाजिक परिनामहरु कति गम्भीर छन् ?",
+		"mild": "ठिक ठिकै",
+		"severe": "कठोर",
+		"c1Text": "केही परिनाम छैन ।",
+		"c2Text": "ठिक ठिकै परिनाम छन ।",
+		"c3Text": "केहि परिनाम छन ।",
+		"c4Text": "महत्वपुर्न परिनाम ।",
+		"c5Text": "कडा परिनाम ।",
+		"c6Text": "कठोर परिनाम ।",
+		"cLeadText": "तपैइलाइ लाग्छकि"
 	},
 	"Question2": {
-		"questionText": "What was the motivation for this disinformation?",
+		"questionText": "यो गलत सुचना प्रस्तुत गर्नुको प्रेरणाके हो । ",
 		"responseStack": [{
-				"radioText": "for financial gain",
+				"radioText": "आर्थिक लाभको लागि",
 				"radioValue": "financial",
 				"radioName": "motive",
 				"link": "www.this.not"
 			},
 			{
-				"radioText": "to knowingly undermine society ",
+				"radioText": "जानि नानि समाजिक",
 				"radioValue": "undermine",
 				"radioName": "motive",
 				"link": "www.this.not"
 			},
 			{
-				"radioText": "result of poor / sloppy research ",
+				"radioText": "कमजोर अनुस्नदानको परिनाम",
 				"radioValue": "sloppy",
 				"radioName": "motive ",
 				"link": "www.this.not"
 			},
 			{
-				"radioText": "political distraction ",
+				"radioText": "राजनितिक कुटनिति",
 				"radioValue": "pdistract ",
 				"radioName": "motive",
 				"link": "www.this.not"
 			},
 			{
-				"radioText": "geniune political differences",
+				"radioText": "फरक राजनितिक बिचारधाराको परिनाम",
 				"radioValue": "preal",
 				"radioName": "motive",
 				"link": "www.this.not"
 			},
 			{
-				"radioText": "parody/fun/meme",
+				"radioText": "व्यंग्य/हादिखुसि/मिम",
 				"radioValue": "parody",
 				"radioName": "motive",
 				"link": "www.this.not"
