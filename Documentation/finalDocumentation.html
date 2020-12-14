@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Final Documentation</title>
+</head>
+<body>
+    <h1> Final Documentation</h1>
+    <h3> Technical Documentation</h3>
+    <p> Technically in this project I implemented the project with Nodejs as the server side tool, a templating engine to
+        serve up the client side files, a mongodb backend and vanilla js/html on the client side.
+        Technically the biggest challenge was that I realized pretty late into the development that the way I had implemented
+    the project i.e. with get requests that were processed resulting in the templating engine serving up new files, was not the best way.
+I specifically found this out when I needed to send post requests because I was sending larger amounts of data than could be
+accomodated in a URL. I dealt with this issue by doing POST requests followed by get redirects. I think this worked to test some of
+basic ideas, but I feel it is an inelegant soltuion. I have outlined how I will attempt the next version in the reflection below.</p>
+<p>Another significant technical challenge was understanding how the interpolation of the Pug templating engine worked.
+    While the Pug documentation is pretty good, it does not clearly outline the right ways to handle interpolation in all cases. I am
+    using interpolation in several ways. 
+</p>
+<ul>
+    <li>as a variable to be served up as HTML in the templating code</li>
+    <li>as a variable that controls workflow (as conditions mostly) in the template</li>
+    <li>as a variable within the script tagged javascript embedded inside the template</li>
+    <li>as a varible embedded within html tags (for e.g. a dynamically generate variable for a onClick(x) inside an anchor tag</li>
+</ul>
+<p>All these different ways of using interpolation were confusing and I often found myself doing trial and error to sort out each way.
+    <br> <br>
+    Another interesting technical challenge was how to move image files back and forth between the client and server. I hacked my way through this
+    by using a base64 encoding, but it appears there are many ways to do this, and I am not sure what the relative merit of each way is. Also one intersting 
+    ideas that resulted from playing with the file transfer stuff was that I realized that one could store images as blobs in the DB. I may implement this in the next version.
+    I think it is a lot less messy than putting files all over folders and tracking their names. 
+</p>
+<h3>Technical Next Steps</h3>
+<p>I want to try doing the whole project again with a React front end, post requests, a node server and mongodb. I think this might work 
+    better because this way the data can be send to the client just once... then the client side can handle a lot of the logic. I am wondering if this
+    is a better solution for low-bandwidth environments. Also, it is probably faster. 
+</p>
+
+<h3>User Experience and Project Idea</h3>
+<p>I am not completely satisfied with how users engage with my project. I think it's intent and use is still not clear
+    without additional input and description by me. I had hoped that I could have a UX that mostly explains itself by the end of the class.
+    However, I don't feel this project is there as yet. </p>
+
+<p>
+    In terms of the user experience I feel a few things have also gone well, and gotten built. For one, it's now easy to experience
+    the lessons exactly as an end user would experience them. This helps a lot with people understanding how the tool is intented to be used. 
+    Another thing that I feel is in good shape is the update mechanism for content designers. Based on user testing and feedback from my peers
+    , this piece was changed to look exactly like the user piece.
+
+</p>
+<h3>User Experience Next Steps</h3>
+<p>The next step on the user side is to focus on writing and videos that help users understanding how to use the tool.
+    There are several aspects of the experience that need better documentation:
+</p>
+<ul>
+    <li>an about page that helps locate the project in the bigger picture</li>
+    <li>videos that help the "power users" i.e. my new lesson designers understand my pedagogy and translate it</li>
+    <li>videos but also a html lesson plan for the facilitators to take a single lesson and execute it</li>
+</ul>
+    
+</body>
+</html>
